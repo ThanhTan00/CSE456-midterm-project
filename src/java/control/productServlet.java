@@ -4,15 +4,8 @@
  */
 package control;
 
-import config.ConfigInfo;
-import dao.ProductDAO;
-import entity.Category;
-import entity.Product;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,9 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author ADMIN
+ * @author tanle
  */
-public class startServlet extends HttpServlet {
+public class productServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,20 +29,7 @@ public class startServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String target = "view/user/userHomePage.jsp";
         
-        ServletContext servletctx = request.getServletContext();
-        String ctxFullPath = servletctx.getRealPath("\\");
-        ConfigInfo.setCtxRealPath(ctxFullPath);
-        
-        ProductDAO productDAO = new ProductDAO();
-        ArrayList<Product> listP = productDAO.getAllProduct();
-        ArrayList<Category> listC = productDAO.getAllCategoy();
-        request.setAttribute("listProduct", listP);
-        request.setAttribute("listCategory", listC);
-        
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher(target);
-        requestDispatcher.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

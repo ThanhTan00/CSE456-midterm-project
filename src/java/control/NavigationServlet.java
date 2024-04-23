@@ -5,12 +5,8 @@
 package control;
 
 import config.ConfigInfo;
-import dao.ProductDAO;
-import entity.Category;
-import entity.Product;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -20,9 +16,9 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author ADMIN
+ * @author tanle
  */
-public class startServlet extends HttpServlet {
+public class NavigationServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,15 +34,22 @@ public class startServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String target = "view/user/userHomePage.jsp";
         
-        ServletContext servletctx = request.getServletContext();
-        String ctxFullPath = servletctx.getRealPath("\\");
-        ConfigInfo.setCtxRealPath(ctxFullPath);
+        String des = request.getParameter("target");
         
-        ProductDAO productDAO = new ProductDAO();
-        ArrayList<Product> listP = productDAO.getAllProduct();
-        ArrayList<Category> listC = productDAO.getAllCategoy();
-        request.setAttribute("listProduct", listP);
-        request.setAttribute("listCategory", listC);
+        switch (des) {
+            case "blog":
+                target = "view/user/blog.jsp";
+                break;
+            case "about":
+                target = "view/user/about.jsp";
+                break;
+            case "contact":
+                target = "view/user/contact.jsp";
+                break;
+            case "shop":
+                break;
+        }
+                
         
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(target);
         requestDispatcher.forward(request, response);
