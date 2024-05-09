@@ -37,12 +37,12 @@
         <!-- Header -->
         <header>
             <jsp:include page="userIncludes/header.jsp"></jsp:include>
-        </header>
-        <!--End Header-->
-        
-        <!-- Cart -->
+            </header>
+            <!--End Header-->
+
+            <!-- Cart -->
         <jsp:include page="userIncludes/cart.jsp"></jsp:include>
-        <!-- End Cart -->
+            <!-- End Cart -->
 
             <!-- Slider -->
             <section class="section-slide">
@@ -68,11 +68,11 @@
                                         </span>
                                     </div>
 
-<!--                                    <div class="layer-slick1 animated visible-false" data-appear="zoomIn" data-delay="1600">
-                                        <a href="product.html" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
-                                            Shop Now
-                                        </a>
-                                    </div>-->
+                                    <!--                                    <div class="layer-slick1 animated visible-false" data-appear="zoomIn" data-delay="1600">
+                                                                            <a href="product.html" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
+                                                                                Shop Now
+                                                                            </a>
+                                                                        </div>-->
                                 </div>
                             </div>
                         </div>
@@ -100,7 +100,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="item-slick1" style="background-image: url(images/other/slider-3.jpg);">
                             <div class="container h-full">
                                 <div style="" class="flex-col-l-m h-full p-t-100 p-b-30 respon5">
@@ -216,16 +216,32 @@
             <section class="bg0 p-t-23 p-b-140">
                 <div class="container">
                     <div class="p-b-10">
-                        <h3 class="ltext-103 cl5">
-                            Latest Arrivals
-                        </h3>
+                        <div class="d-flex justify-content-between">
+                            <h3 class="ltext-103 cl5">
+                                Latest Arrivals
+                            </h3>
+                            <div class="flex-w flex-c-m m-tb-10">
+                                <div class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4 js-show-search">
+                                    <i class="icon-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-search"></i>
+                                    <i class="icon-close-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none"></i>
+                                    Search
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Search product -->
+                        <div class="dis-none panel-search w-full p-t-10 p-b-15">
+                            <div class="bor8 dis-flex p-l-15">
+                                <button class="size-113 flex-c-m fs-16 cl2 hov-cl1 trans-04">
+                                    <i class="zmdi zmdi-search"></i>
+                                </button>
+
+                                <input class="mtext-107 cl2 size-114 plh2 p-r-15" type="text" name="search-product" placeholder="Search">
+                            </div>	
+                        </div>
                     </div>
-                    
-                    <!-- Category -->
-                    <jsp:include page="userIncludes/categoriesNavBar.jsp"></jsp:include>
 
                     <div class="row isotope-grid">
-                        <c:forEach items="${listProduct}" var="p">
+                    <c:forEach items="${listProduct}" var="p">
                         <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item">
                             <!-- Block2 -->
                             <div class="block2">
@@ -257,19 +273,19 @@
                                 </div>
                             </div>
                         </div>
-                        </c:forEach>
-                    </div>
-
-                    <!-- Load more -->
-                    <div class="flex-c-m flex-w w-full p-t-45">
-                        <a href="#" class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04">
-                            Load More
-                        </a>
-                    </div>
+                    </c:forEach>
                 </div>
-            </section>
 
-            <!-- Footer -->
+                <!-- Load more -->
+                <div class="flex-c-m flex-w w-full p-t-45">
+                    <a href="navigate?target=shop" class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04">
+                        Load More
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
         <jsp:include page="userIncludes/footer.jsp"></jsp:include>
         <!-- End Footer -->
         `

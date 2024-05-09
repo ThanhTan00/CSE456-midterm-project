@@ -47,25 +47,27 @@
             <!-- Menu desktop -->
             <div class="menu-desktop">
                 <ul class="main-menu">
-                    <li class="active-menu">
+                    <li class="${ activeTab==0 ? "active-menu":" "}">
                         <a href="start">Home</a>
                     </li>
-                    <li data-label1="hot">
+                    <li class="${ activeTab==1 ? "active-menu":" "}" data-label1="hot">
                         <a href="navigate?target=shop">Shop</a>
                         <ul class="sub-menu">
-                            <li><a href="index.html">Homepage 1</a></li>
+                            <c:forEach items="${listBrand}" var="b">
+                            <li><a href="product?mode=filter&brand=${b.getId()}">${b.getName()}</a></li>
+                            </c:forEach>
                         </ul>
                     </li>
 
-                    <li>
+                    <li class="${ activeTab==2 ? "active-menu":" "}">
                         <a href="navigate?target=blog">Blog</a>
                     </li>
 
-                    <li>
+                    <li class="${ activeTab==3 ? "active-menu":" "}">
                         <a href="navigate?target=about">About</a>
                     </li>
 
-                    <li>
+                    <li class="${ activeTab==4 ? "active-menu":" "}">
                         <a href="navigate?target=contact">Contact</a>
                     </li>
                 </ul>

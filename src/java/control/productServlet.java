@@ -4,8 +4,14 @@
  */
 package control;
 
+import dao.ProductDAO;
+import entity.Brand;
+import entity.Category;
+import entity.Product;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -30,6 +36,32 @@ public class productServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
+        String target = "view/user/product.jsp";
+        String mode = request.getParameter("mode");
+        
+        ProductDAO productDAO = new ProductDAO();
+        
+        ArrayList<Brand> listBrand = productDAO.getAllBrand();
+        ArrayList<Category> listCategory = productDAO.getAllCategoy();
+        ArrayList<Product> listProduct = new ArrayList<>();
+        
+        switch (mode) {
+            case "filter":
+                int brand = Integer.parseInt(request.getParameter("brand"));
+                listProduct = productDAO.getProductByBrand(brand);
+                request.setAttribute("listProduct", listProduct);
+                break;
+            case "about":
+                
+                break;
+        }
+        
+        request.setAttribute("activeTab", 1);
+        request.setAttribute("listBrand", listBrand);
+        request.setAttribute("listCategory", listCategory);
+        
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher(target);
+        requestDispatcher.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

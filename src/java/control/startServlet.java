@@ -6,6 +6,7 @@ package control;
 
 import config.ConfigInfo;
 import dao.ProductDAO;
+import entity.Brand;
 import entity.Category;
 import entity.Product;
 import java.io.IOException;
@@ -45,8 +46,12 @@ public class startServlet extends HttpServlet {
         ProductDAO productDAO = new ProductDAO();
         ArrayList<Product> listP = productDAO.getAllProduct();
         ArrayList<Category> listC = productDAO.getAllCategoy();
+        ArrayList<Brand> lisB = productDAO.getAllBrand();
+        
         request.setAttribute("listProduct", listP);
         request.setAttribute("listCategory", listC);
+        request.setAttribute("listBrand", lisB);
+        request.setAttribute("activeTab", 0);
         
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(target);
         requestDispatcher.forward(request, response);

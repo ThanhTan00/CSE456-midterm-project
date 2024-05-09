@@ -47,16 +47,17 @@
             <!-- Product -->
             <div class="bg0 m-t-23 p-b-140">
                 <div class="container">
-                    
-                     <!-- Category -->
-                    <jsp:include page="userIncludes/categoriesNavBar.jsp"></jsp:include>
+
+                    <!-- Category -->
+                <jsp:include page="userIncludes/categoriesNavBar.jsp"></jsp:include>
 
                     <div class="row isotope-grid">
-                        <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
+                    <c:forEach items="${listProduct}" var="p">
+                        <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item">
                             <!-- Block2 -->
                             <div class="block2">
                                 <div class="block2-pic hov-img0">
-                                    <img src="images/product-01.jpg" alt="IMG-PRODUCT">
+                                    <img style="height: 350px;" class="img-fluid" src="${p.getImage()}" alt="IMG-PRODUCT">
 
                                     <a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
                                         Quick View
@@ -66,11 +67,11 @@
                                 <div class="block2-txt flex-w flex-t p-t-14">
                                     <div class="block2-txt-child1 flex-col-l ">
                                         <a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
-                                            Esprit Ruffle Shirt
+                                            ${p.getName()}
                                         </a>
 
                                         <span class="stext-105 cl3">
-                                            $16.64
+                                            ${p.getFormatedPrice()}
                                         </span>
                                     </div>
 
@@ -83,17 +84,13 @@
                                 </div>
                             </div>
                         </div>
-
-                    <!-- Load more -->
-                    <div class="flex-c-m flex-w w-full p-t-45">
-                        <a href="#" class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04">
-                            Load More
-                        </a>
-                    </div>
+                    </c:forEach>
                 </div>
-            </div>
 
-            <!-- Footer -->
+            </div>
+        </div>
+
+        <!-- Footer -->
         <jsp:include page="userIncludes/footer.jsp"></jsp:include>
         <!-- End Footer -->
 

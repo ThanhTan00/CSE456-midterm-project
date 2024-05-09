@@ -5,8 +5,13 @@
 package control;
 
 import config.ConfigInfo;
+import dao.ProductDAO;
+import entity.Brand;
+import entity.Category;
+import entity.Product;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -32,25 +37,41 @@ public class NavigationServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+
         String target = "view/user/userHomePage.jsp";
-        
+        ProductDAO productDAO = new ProductDAO();
+
+        int activeTab = 0;
+        ArrayList<Brand> lisB = productDAO.getAllBrand();
+
         String des = request.getParameter("target");
-        
+
         switch (des) {
             case "blog":
                 target = "view/user/blog.jsp";
+                activeTab = 2;
                 break;
             case "about":
                 target = "view/user/about.jsp";
+                activeTab = 3;
                 break;
             case "contact":
                 target = "view/user/contact.jsp";
+                activeTab = 4;
                 break;
             case "shop":
+                activeTab = 1;
+                target = "view/user/product.jsp";
+                ArrayList<Product> listP = productDAO.getAllProduct();
+                ArrayList<Category> listC = productDAO.getAllCategoy();
+                
+                request.setAttribute("listProduct", listP);
+                request.setAttribute("listCategory", listC);
                 break;
         }
-                
-        
+        request.setAttribute("listBrand", lisB);
+        request.setAttribute("activeTab", activeTab);
+
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(target);
         requestDispatcher.forward(request, response);
     }
