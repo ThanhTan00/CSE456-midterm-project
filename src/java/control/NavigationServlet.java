@@ -67,6 +67,7 @@ public class NavigationServlet extends HttpServlet {
                 
                 request.setAttribute("listProduct", listP);
                 request.setAttribute("listCategory", listC);
+                request.setAttribute("page_title", "all branches");
                 break;
         }
         request.setAttribute("listBrand", lisB);

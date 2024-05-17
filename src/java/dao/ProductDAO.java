@@ -128,7 +128,35 @@ public class ProductDAO {
             System.out.println(ex.getMessage());
         }
         return listProduct;
-    } 
+    }
+    
+    public ArrayList<Product> getProductByBrandCategory(int brandId, int catId){
+        ArrayList<Product> listProduct = new ArrayList<>();
+        
+        String query = "select * from product where brand_id = "+brandId+" and cat_id="+catId;
+        try {
+            con = DBContext.getConnection();
+            ps = con.prepareStatement(query);
+            rs = ps.executeQuery(query);
+            while (rs.next()) {
+                Product product = new Product(
+                        rs.getString(1),
+                        rs.getString(2),
+                        "images\\product-images\\" + rs.getString(3),
+                        rs.getDouble(4),
+                        rs.getInt(5),
+                        rs.getInt(6),
+                        rs.getString(7)
+                );
+                listProduct.add(product);
+            }
+            ps.close();
+            con.close();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return listProduct;
+    }
 
     public static void main(String[] args) {
         ProductDAO productDAO = new ProductDAO();

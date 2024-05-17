@@ -11,7 +11,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Tan's Shoes Store | Contact</title>
+        <title>Tan's Shoes Store | Shopping</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -47,19 +47,24 @@
             <!-- Product -->
             <div class="bg0 m-t-23 p-b-140">
                 <div class="container">
+                    <div class="d-flex justify-content-start">
+                        <h3 class="ltext-103 cl5">
+                            ${page_title}
+                        </h3>
+                    </div>
 
                     <!-- Category -->
                 <jsp:include page="userIncludes/categoriesNavBar.jsp"></jsp:include>
 
                     <div class="row isotope-grid">
                     <c:forEach items="${listProduct}" var="p">
-                        <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item">
+                        <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item ${p.getCategory()}">
                             <!-- Block2 -->
                             <div class="block2">
                                 <div class="block2-pic hov-img0">
                                     <img style="height: 350px;" class="img-fluid" src="${p.getImage()}" alt="IMG-PRODUCT">
 
-                                    <a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
+                                    <a href="product?mode=detail&id=${p.getId()}" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
                                         Quick View
                                     </a>
                                 </div>

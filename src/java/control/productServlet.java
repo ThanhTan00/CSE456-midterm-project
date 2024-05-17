@@ -38,6 +38,7 @@ public class productServlet extends HttpServlet {
         
         String target = "view/user/product.jsp";
         String mode = request.getParameter("mode");
+        String pageTitle="";
         
         ProductDAO productDAO = new ProductDAO();
         
@@ -49,13 +50,20 @@ public class productServlet extends HttpServlet {
             case "filter":
                 int brand = Integer.parseInt(request.getParameter("brand"));
                 listProduct = productDAO.getProductByBrand(brand);
+                for (Brand b : listBrand) {
+                    if (b.getId() == brand){
+                        pageTitle = b.getName();
+                    }
+                }
                 request.setAttribute("listProduct", listProduct);
                 break;
-            case "about":
+            case "detail":
+                target="view/user/productDetail.jsp";
                 
                 break;
         }
         
+        request.setAttribute("page_title", pageTitle);
         request.setAttribute("activeTab", 1);
         request.setAttribute("listBrand", listBrand);
         request.setAttribute("listCategory", listCategory);
