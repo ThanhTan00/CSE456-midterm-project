@@ -31,6 +31,31 @@
         <link rel="stylesheet" type="text/css" href="asset/css/util.css">
         <link rel="stylesheet" type="text/css" href="asset/css/main.css">
         <script src="https://kit.fontawesome.com/d69b483815.js" crossorigin="anonymous"></script>
+        <style>
+            .stars {
+                width: fit-content;
+                position: relative;
+                white-space: nowrap;
+            }
+            .stars svg {
+                width: 30px;
+            }
+
+            .overlay {
+                background: #fff;
+                height: 100%;
+                overflow: hidden;
+                mix-blend-mode: color;
+                position: absolute;
+                top: 0;
+                right: 0;
+            }
+
+            svg {
+                height: 30%;
+                fill: gold;
+            }
+        </style>
         <!--===============================================================================================-->
     </head>
     <body class="animsition">
@@ -59,31 +84,31 @@
                                     <div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
 
                                     <div class="slick3 gallery-lb">
-                                        <div class="item-slick3" data-thumb="images/product-detail-01.jpg">
+                                        <div class="item-slick3" data-thumb="${product.getImage()}">
                                             <div class="wrap-pic-w pos-relative">
-                                                <img src="images/product-detail-01.jpg" alt="IMG-PRODUCT">
+                                                <img src="${product.getImage()}" alt="IMG-PRODUCT">
 
-                                                <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="images/product-detail-01.jpg">
+                                                <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="${product.getImage()}">
                                                     <i class="fa fa-expand"></i>
                                                 </a>
                                             </div>
                                         </div>
 
-                                        <div class="item-slick3" data-thumb="images/product-detail-02.jpg">
+                                        <div class="item-slick3" data-thumb="${product.getImage()}">
                                             <div class="wrap-pic-w pos-relative">
-                                                <img src="images/product-detail-02.jpg" alt="IMG-PRODUCT">
+                                                <img src="${product.getImage()}" alt="IMG-PRODUCT">
 
-                                                <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="images/product-detail-02.jpg">
+                                                <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="${product.getImage()}">
                                                     <i class="fa fa-expand"></i>
                                                 </a>
                                             </div>
                                         </div>
 
-                                        <div class="item-slick3" data-thumb="images/product-detail-03.jpg">
+                                        <div class="item-slick3" data-thumb="${product.getImage()}">
                                             <div class="wrap-pic-w pos-relative">
-                                                <img src="images/product-detail-03.jpg" alt="IMG-PRODUCT">
+                                                <img src="${product.getImage()}" alt="IMG-PRODUCT">
 
-                                                <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="images/product-detail-03.jpg">
+                                                <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="${product.getImage()}">
                                                     <i class="fa fa-expand"></i>
                                                 </a>
                                             </div>
@@ -96,16 +121,35 @@
                         <div class="col-md-6 col-lg-5 p-b-30">
                             <div class="p-r-50 p-t-5 p-lr-0-lg">
                                 <h4 class="mtext-105 cl2 js-name-detail p-b-14">
-                                    Lightweight Jacket
+                                    ${product.getName()}
                                 </h4>
 
                                 <span class="mtext-106 cl2">
-                                    $58.79
+                                    ${product.getFormatedPrice()}
                                 </span>
 
                                 <p class="stext-102 cl3 p-t-23">
-                                    Nulla eget sem vitae eros pharetra viverra. Nam vitae luctus ligula. Mauris consequat ornare feugiat.
+                                    ${product.getDescription()}
                                 </p>
+                                <p class="mtext-106 cl2 mt-3 pb-1">Customer's Feedback:</p>
+                                <div class="stars">
+                                    <svg width="100" height="100" viewBox="0 0 940.688 940.688">
+                                    <path d="M885.344,319.071l-258-3.8l-102.7-264.399c-19.8-48.801-88.899-48.801-108.6,0l-102.7,264.399l-258,3.8 c-53.4,3.101-75.1,70.2-33.7,103.9l209.2,181.4l-71.3,247.7c-14,50.899,41.1,92.899,86.5,65.899l224.3-122.7l224.3,122.601 c45.4,27,100.5-15,86.5-65.9l-71.3-247.7l209.2-181.399C960.443,389.172,938.744,322.071,885.344,319.071z" />
+                                    </svg>
+                                    <svg width="100" height="100" viewBox="0 0 940.688 940.688">
+                                    <path d="M885.344,319.071l-258-3.8l-102.7-264.399c-19.8-48.801-88.899-48.801-108.6,0l-102.7,264.399l-258,3.8 c-53.4,3.101-75.1,70.2-33.7,103.9l209.2,181.4l-71.3,247.7c-14,50.899,41.1,92.899,86.5,65.899l224.3-122.7l224.3,122.601 c45.4,27,100.5-15,86.5-65.9l-71.3-247.7l209.2-181.399C960.443,389.172,938.744,322.071,885.344,319.071z" />
+                                    </svg>
+                                    <svg width="100" height="100" viewBox="0 0 940.688 940.688">
+                                    <path d="M885.344,319.071l-258-3.8l-102.7-264.399c-19.8-48.801-88.899-48.801-108.6,0l-102.7,264.399l-258,3.8 c-53.4,3.101-75.1,70.2-33.7,103.9l209.2,181.4l-71.3,247.7c-14,50.899,41.1,92.899,86.5,65.899l224.3-122.7l224.3,122.601 c45.4,27,100.5-15,86.5-65.9l-71.3-247.7l209.2-181.399C960.443,389.172,938.744,322.071,885.344,319.071z" />
+                                    </svg>
+                                    <svg width="100" height="100" viewBox="0 0 940.688 940.688">
+                                    <path d="M885.344,319.071l-258-3.8l-102.7-264.399c-19.8-48.801-88.899-48.801-108.6,0l-102.7,264.399l-258,3.8 c-53.4,3.101-75.1,70.2-33.7,103.9l209.2,181.4l-71.3,247.7c-14,50.899,41.1,92.899,86.5,65.899l224.3-122.7l224.3,122.601 c45.4,27,100.5-15,86.5-65.9l-71.3-247.7l209.2-181.399C960.443,389.172,938.744,322.071,885.344,319.071z" />
+                                    </svg>
+                                    <svg width="100" height="100" viewBox="0 0 940.688 940.688">
+                                    <path d="M885.344,319.071l-258-3.8l-102.7-264.399c-19.8-48.801-88.899-48.801-108.6,0l-102.7,264.399l-258,3.8 c-53.4,3.101-75.1,70.2-33.7,103.9l209.2,181.4l-71.3,247.7c-14,50.899,41.1,92.899,86.5,65.899l224.3-122.7l224.3,122.601 c45.4,27,100.5-15,86.5-65.9l-71.3-247.7l209.2-181.399C960.443,389.172,938.744,322.071,885.344,319.071z" />
+                                    </svg>
+                                    <div class="overlay"></div>
+                                </div>
 
                                 <!--  -->
                                 <div class="p-t-33">
@@ -113,15 +157,17 @@
                                         <div class="size-203 flex-c-m respon6">
                                             Size
                                         </div>
-
                                         <div class="size-204 respon6-next">
                                             <div class="rs1-select2 bor8 bg0">
-                                                <select class="js-select2" name="time">
+                                                <select class="js-select2" name="size">
                                                     <option>Choose an option</option>
-                                                    <option>Size S</option>
-                                                    <option>Size M</option>
-                                                    <option>Size L</option>
-                                                    <option>Size XL</option>
+                                                    <option value="37">Size 37</option>
+                                                    <option value="38">Size 38</option>
+                                                    <option value="39">Size 39</option>
+                                                    <option value="40">Size 40</option>
+                                                    <option value="41">Size 41</option>
+                                                    <option value="41">Size 42</option>
+                                                    <option value="43">Size 43</option>
                                                 </select>
                                                 <div class="dropDownSelect2"></div>
                                             </div>
@@ -129,42 +175,28 @@
                                     </div>
 
                                     <div class="flex-w flex-r-m p-b-10">
-                                        <div class="size-203 flex-c-m respon6">
-                                            Color
-                                        </div>
+                                        <form id="add-to-card-form" action="cart?mode=add" method="get">
+                                            <div class="size-204 flex-w flex-m respon6-next">
+                                                <div class="wrap-num-product flex-w m-r-20 m-tb-10">
+                                                    <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
+                                                        <i class="fs-16 zmdi zmdi-minus"></i>
+                                                    </div>
+                                                    
+                                                    <input type="text" name="mode" value="add" hidden/>
+                                                    <input type="text" name="pid" value="${product.getId()}" hidden/>
+                                                    <input class="mtext-104 cl3 txt-center num-product" type="number" name="quantity" value="1">
 
-                                        <div class="size-204 respon6-next">
-                                            <div class="rs1-select2 bor8 bg0">
-                                                <select class="js-select2" name="time">
-                                                    <option>Choose an option</option>
-                                                    <option>Red</option>
-                                                    <option>Blue</option>
-                                                    <option>White</option>
-                                                    <option>Grey</option>
-                                                </select>
-                                                <div class="dropDownSelect2"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="flex-w flex-r-m p-b-10">
-                                        <div class="size-204 flex-w flex-m respon6-next">
-                                            <div class="wrap-num-product flex-w m-r-20 m-tb-10">
-                                                <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
-                                                    <i class="fs-16 zmdi zmdi-minus"></i>
+                                                    <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
+                                                        <i class="fs-16 zmdi zmdi-plus"></i>
+                                                    </div>
                                                 </div>
 
-                                                <input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product" value="1">
-
-                                                <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
-                                                    <i class="fs-16 zmdi zmdi-plus"></i>
-                                                </div>
+                                                <button type="submit" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
+                                                    Add to cart
+                                                </button>
                                             </div>
-
-                                            <button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
-                                                Add to cart
-                                            </button>
-                                        </div>
+                                        </form>
+                                        
                                     </div>	
                                 </div>
 
@@ -210,6 +242,11 @@
 
         <script src="asset/vendor/select2/select2.min.js"></script>
         <script>
+            document.querySelector('.overlay').style.width = `${100 - product.getFeedback()}%`;
+            console.log(${100 - product.getFeedback()});
+        </script>
+        <script>
+            
             $(".js-select2").each(function () {
                 $(this).select2({
                     minimumResultsForSearch: 20,
@@ -273,14 +310,6 @@
             });
 
             /*---------------------------------------------*/
-
-            $('.js-addcart-detail').each(function () {
-                var nameProduct = $(this).parent().parent().parent().parent().find('.js-name-detail').html();
-                $(this).on('click', function () {
-                    swal(nameProduct, "is added to cart !", "success");
-                });
-            });
-
         </script>
 
         <script src="asset/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>

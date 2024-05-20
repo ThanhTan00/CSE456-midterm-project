@@ -6,13 +6,17 @@ package control;
 
 import dao.ProductDAO;
 import entity.Brand;
+import entity.Cart;
 import entity.Category;
+import entity.Item;
 import entity.Product;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,7 +26,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author tanle
  */
-public class productServlet extends HttpServlet {
+public class cartServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,48 +40,64 @@ public class productServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-        String target = "view/user/product.jsp";
+        String target = "view/user/cartPage.jsp";
         String mode = request.getParameter("mode");
-        String pageTitle="";
+        String pageTitle="Your Shopping Cart";
         
         HttpSession session = request.getSession();
 
         ProductDAO productDAO = new ProductDAO();
         
         ArrayList<Brand> listBrand = productDAO.getAllBrand();
-        ArrayList<Category> listCategory = productDAO.getAllCategoy();
-        ArrayList<Product> listProduct = new ArrayList<>();
         
         switch (mode) {
-            case "filter":
-                int brand = Integer.parseInt(request.getParameter("brand"));
-                listProduct = productDAO.getProductByBrand(brand);
-                for (Brand b : listBrand) {
-                    if (b.getId() == brand){
-                        pageTitle = b.getName();
+            case "view":
+                break;
+            case "add":
+                
+                int quantity = Integer.parseInt(request.getParameter("quantity"));
+                String pid = request.getParameter("pid");
+                
+                Product p = productDAO.getProductById(pid);
+                
+//                target="product?mode=detail&id="+pid;
+                
+                if (session.getAttribute("cart") == null) {
+                    Cart cart = new Cart();
+                    List<Item> list = new ArrayList<Item>();
+                    Item item = new Item();
+                    item.setProduct(p);
+                    item.setQuantity(quantity);
+                    item.setPrice(p.getPrice());
+                    list.add(item);
+                    cart.setItems(list);
+                    session.setAttribute("cart", cart);
+                } else {
+                    Cart cart = (Cart) session.getAttribute("cart");
+                    List<Item> list = cart.getItems();
+                    boolean check = false;
+                    for (Item i : list) {
+                        if (i.getProduct().getId().equalsIgnoreCase(p.getId())) {
+                            i.setQuantity(i.getQuantity() + quantity);
+                            check = true;
+                        }
                     }
+                    if (check == false) {
+                        Item item = new Item();
+                        item.setProduct(p);
+                        item.setPrice(p.getPrice());
+                        item.setQuantity(quantity);
+                        list.add(item);
+                    }
+                    session.setAttribute("cart", cart);
                 }
-                request.setAttribute("listProduct", listProduct);
                 break;
-            case "detail":
-                target="view/user/productDetail.jsp";
-                String id = request.getParameter("id");
-                Product product = productDAO.getProductById(id);
-                request.setAttribute("product", product);
-                break;
-            case "search":
-                String search = request.getParameter("search_value");
-                session.setAttribute("searchValue", search);
-                listProduct = productDAO.searchProductByName(search);
-                request.setAttribute("listProduct", listProduct);
-                break;
+            
         }
         
         request.setAttribute("page_title", pageTitle);
         request.setAttribute("activeTab", 1);
         request.setAttribute("listBrand", listBrand);
-        request.setAttribute("listCategory", listCategory);
         
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(target);
         requestDispatcher.forward(request, response);

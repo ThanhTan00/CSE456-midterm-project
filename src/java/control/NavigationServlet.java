@@ -64,10 +64,16 @@ public class NavigationServlet extends HttpServlet {
                 target = "view/user/product.jsp";
                 ArrayList<Product> listP = productDAO.getAllProduct();
                 ArrayList<Category> listC = productDAO.getAllCategoy();
-                
+
                 request.setAttribute("listProduct", listP);
                 request.setAttribute("listCategory", listC);
                 request.setAttribute("page_title", "all branches");
+                break;
+            case "login":
+                target = "view/user/loginPage.jsp";
+                break;
+            case "register":
+                target = "view/user/registerPage.jsp";
                 break;
         }
         request.setAttribute("listBrand", lisB);

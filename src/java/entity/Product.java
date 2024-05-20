@@ -21,8 +21,11 @@ public class Product {
     private int category;
     private int brand;
     private String description;
+    private int feedback;
+    
+    public Product(){}
 
-    public Product(String id, String name, String image, double price, int category, int brand, String description) {
+    public Product(String id, String name, String image, double price, int category, int brand, String description, int feedback) {
         this.id = id;
         this.name = name;
         this.image = image;
@@ -30,6 +33,7 @@ public class Product {
         this.category = category;
         this.brand = brand;
         this.description = description;
+        this.feedback = feedback;
     }
     
     public String getFormatedPrice() {
@@ -96,6 +100,15 @@ public class Product {
         this.description = description;
     }
 
+    public int getFeedback() {
+        return feedback;
+    }
+
+    public void setFeedback(int feedback) {
+        this.feedback = feedback;
+    }
+    
+    
     @Override
     public String toString() {
         return "id=" + id + ", name=" + name + ", image=" + image + ", price=" + price + ", category=" + category + ", brand=" + brand + ", description=" + description + '}';

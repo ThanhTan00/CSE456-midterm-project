@@ -49,11 +49,11 @@
                 <div class="container">
                     <div class="d-flex justify-content-start">
                         <h3 class="ltext-103 cl5">
-                            ${page_title}
-                        </h3>
-                    </div>
+                        ${page_title}
+                    </h3>
+                </div>
 
-                    <!-- Category -->
+                <!-- Category -->
                 <jsp:include page="userIncludes/categoriesNavBar.jsp"></jsp:include>
 
                     <div class="row isotope-grid">
@@ -64,14 +64,16 @@
                                 <div class="block2-pic hov-img0">
                                     <img style="height: 350px;" class="img-fluid" src="${p.getImage()}" alt="IMG-PRODUCT">
 
-                                    <a href="product?mode=detail&id=${p.getId()}" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
-                                        Quick View
+                                    <a href="cart?mode=add&&pid=${p.getId()}" class="col-md-6 block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
+                                        Add to cart
                                     </a>
+
+
                                 </div>
 
                                 <div class="block2-txt flex-w flex-t p-t-14">
                                     <div class="block2-txt-child1 flex-col-l ">
-                                        <a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+                                        <a href="product?mode=detail&id=${p.getId()}" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
                                             ${p.getName()}
                                         </a>
 

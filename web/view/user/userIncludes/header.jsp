@@ -16,11 +16,11 @@
             </div>
 
             <div class="right-top-bar flex-w h-full">
-                <a href="#" class="flex-c-m trans-04 p-lr-25">
+                <a href="navigate?target=login" class="flex-c-m trans-04 p-lr-25">
                     Sing in
                 </a>
 
-                <a href="#" class="flex-c-m trans-04 p-lr-25">
+                <a href="navigate?target=register" class="flex-c-m trans-04 p-lr-25">
                     Sign up
                 </a>
 

@@ -45,7 +45,8 @@ public class ProductDAO {
                         rs.getDouble(4),
                         rs.getInt(5),
                         rs.getInt(6),
-                        rs.getString(7)
+                        rs.getString(7),
+                        rs.getInt(8)
                 );
                 productList.add(product);
             }
@@ -101,11 +102,11 @@ public class ProductDAO {
         return listBrands;
 
     }
-    
-    public ArrayList<Product> getProductByBrand(int brandId){
+
+    public ArrayList<Product> getProductByBrand(int brandId) {
         ArrayList<Product> listProduct = new ArrayList<>();
-        
-        String query = "select * from product where brand_id = '"+brandId+"';";
+
+        String query = "select * from product where brand_id = '" + brandId + "';";
         try {
             con = DBContext.getConnection();
             ps = con.prepareStatement(query);
@@ -118,7 +119,8 @@ public class ProductDAO {
                         rs.getDouble(4),
                         rs.getInt(5),
                         rs.getInt(6),
-                        rs.getString(7)
+                        rs.getString(7),
+                        rs.getInt(8)
                 );
                 listProduct.add(product);
             }
@@ -129,11 +131,11 @@ public class ProductDAO {
         }
         return listProduct;
     }
-    
-    public ArrayList<Product> getProductByBrandCategory(int brandId, int catId){
+
+    public ArrayList<Product> getProductByBrandCategory(int brandId, int catId) {
         ArrayList<Product> listProduct = new ArrayList<>();
-        
-        String query = "select * from product where brand_id = "+brandId+" and cat_id="+catId;
+
+        String query = "select * from product where brand_id = " + brandId + " and cat_id=" + catId;
         try {
             con = DBContext.getConnection();
             ps = con.prepareStatement(query);
@@ -146,7 +148,8 @@ public class ProductDAO {
                         rs.getDouble(4),
                         rs.getInt(5),
                         rs.getInt(6),
-                        rs.getString(7)
+                        rs.getString(7),
+                        rs.getInt(8)
                 );
                 listProduct.add(product);
             }
@@ -156,6 +159,60 @@ public class ProductDAO {
             System.out.println(ex.getMessage());
         }
         return listProduct;
+    }
+
+    public ArrayList<Product> searchProductByName(String search) {
+        ArrayList<Product> list = new ArrayList<Product>();
+        String query = "select * from product where enable = 1 and product_name like '%" + search + "%' order by product_id desc";
+        try {
+            con = DBContext.getConnection();
+            ps = con.prepareStatement(query);
+            rs = ps.executeQuery(query);
+            //String imageLocation="resources\\uploadedIMG\\" + imgName + ".jpg";
+            while (rs.next()) {
+                Product product = new Product(
+                        rs.getString(1),
+                        rs.getString(2),
+                        "images\\product-images\\" + rs.getString(3),
+                        rs.getDouble(4),
+                        rs.getInt(5),
+                        rs.getInt(6),
+                        rs.getString(7),
+                        rs.getInt(8)
+                );
+                list.add(product);
+            }
+            con.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return list;
+    }
+    
+    public Product getProductById(String id) {
+        Product product= null;
+        String query = "select * from product where product_id = '"+id+"'";
+        try {
+            con = DBContext.getConnection();
+            ps = con.prepareStatement(query);
+            rs = ps.executeQuery(query);
+            while (rs.next()) {
+                product = new Product(
+                        rs.getString(1),
+                        rs.getString(2),
+                        "images\\product-images\\" + rs.getString(3),
+                        rs.getDouble(4),
+                        rs.getInt(5),
+                        rs.getInt(6),
+                        rs.getString(7),
+                        rs.getInt(8)
+                );
+            }
+            con.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return product;
     }
 
     public static void main(String[] args) {
