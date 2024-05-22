@@ -13,7 +13,6 @@ import entity.Product;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,7 +23,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author tanle
+ * @author ADMIN
  */
 public class cartServlet extends HttpServlet {
 
@@ -36,71 +35,72 @@ public class cartServlet extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
+     *
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String target = "view/user/cartPage.jsp";
+
+        String target = "start";
         String mode = request.getParameter("mode");
-        String pageTitle="Your Shopping Cart";
-        
-        HttpSession session = request.getSession();
 
         ProductDAO productDAO = new ProductDAO();
-        
+
         ArrayList<Brand> listBrand = productDAO.getAllBrand();
-        
+        ArrayList<Category> listCategory = productDAO.getAllCategoy();
+
+        HttpSession session = request.getSession();
+
         switch (mode) {
             case "view":
+                target = "navigate?target=cart";
                 break;
             case "add":
-                
-                int quantity = Integer.parseInt(request.getParameter("quantity"));
+                target = "navigate?target=cart";
                 String pid = request.getParameter("pid");
-                
-                Product p = productDAO.getProductById(pid);
-                
-//                target="product?mode=detail&id="+pid;
-                
-                if (session.getAttribute("cart") == null) {
-                    Cart cart = new Cart();
-                    List<Item> list = new ArrayList<Item>();
-                    Item item = new Item();
-                    item.setProduct(p);
-                    item.setQuantity(quantity);
-                    item.setPrice(p.getPrice());
-                    list.add(item);
-                    cart.setItems(list);
-                    session.setAttribute("cart", cart);
-                } else {
+                int quantity = Integer.parseInt(request.getParameter("quantity"));
+
+                Product product = productDAO.getProductById(pid);
+
+                if (isCart(session)) {
                     Cart cart = (Cart) session.getAttribute("cart");
-                    List<Item> list = cart.getItems();
-                    boolean check = false;
-                    for (Item i : list) {
-                        if (i.getProduct().getId().equalsIgnoreCase(p.getId())) {
-                            i.setQuantity(i.getQuantity() + quantity);
-                            check = true;
-                        }
+
+                    if (isItem(cart, pid)) {
+                        cart.getItemById(pid).setQuantity(quantity);
+                    } else {
+                        Item i = new Item(product, quantity);
+                        cart.addItem(i);
                     }
-                    if (check == false) {
-                        Item item = new Item();
-                        item.setProduct(p);
-                        item.setPrice(p.getPrice());
-                        item.setQuantity(quantity);
-                        list.add(item);
-                    }
+
+                    session.setAttribute("cart", cart);
+
+                } else {
+                    Cart cart = new Cart();
+                    Item i = new Item(product, quantity);
+                    cart.addItem(i);
                     session.setAttribute("cart", cart);
                 }
                 break;
-            
         }
-        
-        request.setAttribute("page_title", pageTitle);
-        request.setAttribute("activeTab", 1);
+
         request.setAttribute("listBrand", listBrand);
-        
+        request.setAttribute("listCategory", listCategory);
+
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(target);
         requestDispatcher.forward(request, response);
+    }
+
+    public static boolean isCart(HttpSession session) {
+        return (session.getAttribute("cart") != null);
+    }
+
+    public static boolean isItem(Cart c, String id) {
+        for (Item i : c.getItems()) {
+            if (i.getProduct().getId().equalsIgnoreCase(id)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -59,6 +59,9 @@ public class NavigationServlet extends HttpServlet {
                 target = "view/user/contact.jsp";
                 activeTab = 4;
                 break;
+            case "cart":
+                target = "view/user/cartPage.jsp";
+                break;
             case "shop":
                 activeTab = 1;
                 target = "view/user/product.jsp";

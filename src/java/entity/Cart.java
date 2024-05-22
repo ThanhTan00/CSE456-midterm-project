@@ -5,20 +5,23 @@
 package entity;
 
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  *
  * @author tanle
  */
 public class Cart {
+
     private List<Item> items;
-    
+
     public Cart() {
         items = new ArrayList<>();
     }
-    
+
     public Cart(List<Item> items) {
         this.items = items;
     }
@@ -30,47 +33,53 @@ public class Cart {
     public void setItems(List<Item> items) {
         this.items = items;
     }
-    
-    private Item getItemById(String id) {
-        for(Item i:items) {
-            if(i.getProduct().getId().equalsIgnoreCase(id))
+
+    public Item getItemById(String id) {
+        for (Item i : items) {
+            if (i.getProduct().getId().equalsIgnoreCase(id)) {
                 return i;
+            }
         }
         return null;
     }
-    
+
     public int getQuantityById(String id) {
         return getItemById(id).getQuantity();
     }
     //add to cart
-    
+
     public void addItem(Item t) {
-        if(getItemById(t.getProduct().getId()).equals("")) {
-            Item i = getItemById(t.getProduct().getId());
-        } else {
-            items.add(t);
-        }
-    } 
+
+        items.add(t);
+
+    }
+
     public void removeItem(String id) {
-        if(getItemById(id) !=null) {
+        if (getItemById(id) != null) {
             items.remove(getItemById(id));
         }
     }
-    public int getTotalQuantity(){
-        int totalQuantity=0;
-        for (Item i : items){
-            totalQuantity+= i.getQuantity();
+
+    public int getTotalQuantity() {
+        int totalQuantity = 0;
+        for (Item i : items) {
+            totalQuantity += i.getQuantity();
         }
         return totalQuantity;
     }
+
     public double getTotalMoney() {
         double t = 0;
-        for(Item i:items)
-            t+=i.getTotal();
+        for (Item i : items) {
+            t += i.getItemPrice();
+        }
         return t;
     }
-    public String getStringTotalMoney() {
-        DecimalFormat df = new DecimalFormat("###,###,###");
-        return df.format(getTotalMoney());
+    public String getFormatedTotalPrice(double price) {
+        Locale locale = new Locale("vi", "VN");
+        NumberFormat numberFormat = NumberFormat.getCurrencyInstance(locale);
+        String stringPrice = numberFormat.format(price);
+        return stringPrice;
     }
+    
 }

@@ -5,6 +5,8 @@
 package entity;
 
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 /**
  *
@@ -13,16 +15,15 @@ import java.text.DecimalFormat;
 public class Item {
     private Product product;
     private int quantity;
-    private double price;
+    private double totalPrice;
     
     public Item() {
         
     }
 
-    public Item(Product product, int quantity, double price) {
+    public Item(Product product, int quantity) {
         this.product = product;
         this.quantity = quantity;
-        this.price = price;
     }
 
     public Product getProduct() {
@@ -38,19 +39,18 @@ public class Item {
     }
 
     public void setQuantity(int quantity) {
-        this.quantity = quantity;
+        this.quantity += quantity;
     }
 
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
+    public double getItemPrice() {
+        return product.getPrice()*quantity;
     }
     
-    public double getTotal(){
-       return price = product.getPrice()*quantity;
-        
+    public String getFormatedItemPrice() {
+        Locale locale = new Locale("vi", "VN");
+        NumberFormat numberFormat = NumberFormat.getCurrencyInstance(locale);
+        String stringPrice = numberFormat.format(getItemPrice());
+        return stringPrice;
     }
+
 }
