@@ -64,8 +64,8 @@
                                 <div class="block2-pic hov-img0">
                                     <img style="height: 350px;" class="img-fluid" src="${p.getImage()}" alt="IMG-PRODUCT">
 
-                                    <a href="cart?mode=add&pid=${p.getId()}&quantity=1" class="col-md-6 block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
-                                        Add to cart
+                                    <a href="product?mode=detail&id=${p.getId()}" class="col-md-6 block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
+                                        View Details
                                     </a>
 
 

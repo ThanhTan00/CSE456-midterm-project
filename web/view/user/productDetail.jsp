@@ -85,73 +85,75 @@
 
                                     <div class="slick3 gallery-lb">
                                         <div class="item-slick3" data-thumb="${product.getImage()}">
-                                            <div class="wrap-pic-w pos-relative">
-                                                <img src="${product.getImage()}" alt="IMG-PRODUCT">
+                                        <div class="wrap-pic-w pos-relative">
+                                            <img src="${product.getImage()}" alt="IMG-PRODUCT">
 
-                                                <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="${product.getImage()}">
-                                                    <i class="fa fa-expand"></i>
-                                                </a>
-                                            </div>
+                                            <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="${product.getImage()}">
+                                                <i class="fa fa-expand"></i>
+                                            </a>
                                         </div>
+                                    </div>
 
-                                        <div class="item-slick3" data-thumb="${product.getImage()}">
-                                            <div class="wrap-pic-w pos-relative">
-                                                <img src="${product.getImage()}" alt="IMG-PRODUCT">
+                                    <div class="item-slick3" data-thumb="${product.getImage()}">
+                                        <div class="wrap-pic-w pos-relative">
+                                            <img src="${product.getImage()}" alt="IMG-PRODUCT">
 
-                                                <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="${product.getImage()}">
-                                                    <i class="fa fa-expand"></i>
-                                                </a>
-                                            </div>
+                                            <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="${product.getImage()}">
+                                                <i class="fa fa-expand"></i>
+                                            </a>
                                         </div>
+                                    </div>
 
-                                        <div class="item-slick3" data-thumb="${product.getImage()}">
-                                            <div class="wrap-pic-w pos-relative">
-                                                <img src="${product.getImage()}" alt="IMG-PRODUCT">
+                                    <div class="item-slick3" data-thumb="${product.getImage()}">
+                                        <div class="wrap-pic-w pos-relative">
+                                            <img src="${product.getImage()}" alt="IMG-PRODUCT">
 
-                                                <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="${product.getImage()}">
-                                                    <i class="fa fa-expand"></i>
-                                                </a>
-                                            </div>
+                                            <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="${product.getImage()}">
+                                                <i class="fa fa-expand"></i>
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
 
-                        <div class="col-md-6 col-lg-5 p-b-30">
-                            <div class="p-r-50 p-t-5 p-lr-0-lg">
-                                <h4 class="mtext-105 cl2 js-name-detail p-b-14">
-                                    ${product.getName()}
-                                </h4>
+                    <div class="col-md-6 col-lg-5 p-b-30">
+                        <div class="p-r-50 p-t-5 p-lr-0-lg">
+                            <h4 class="mtext-105 cl2 js-name-detail p-b-14">
+                                ${product.getName()}
+                            </h4>
 
-                                <span class="mtext-106 cl2">
-                                    ${product.getFormatedPrice()}
-                                </span>
+                            <span class="mtext-106 cl2">
+                                ${product.getFormatedPrice()}
+                            </span>
 
-                                <p class="stext-102 cl3 p-t-23">
-                                    ${product.getDescription()}
-                                </p>
-                                <p class="mtext-106 cl2 mt-3 pb-1">Customer's Feedback:</p>
-                                <div class="stars">
-                                    <svg width="100" height="100" viewBox="0 0 940.688 940.688">
-                                    <path d="M885.344,319.071l-258-3.8l-102.7-264.399c-19.8-48.801-88.899-48.801-108.6,0l-102.7,264.399l-258,3.8 c-53.4,3.101-75.1,70.2-33.7,103.9l209.2,181.4l-71.3,247.7c-14,50.899,41.1,92.899,86.5,65.899l224.3-122.7l224.3,122.601 c45.4,27,100.5-15,86.5-65.9l-71.3-247.7l209.2-181.399C960.443,389.172,938.744,322.071,885.344,319.071z" />
-                                    </svg>
-                                    <svg width="100" height="100" viewBox="0 0 940.688 940.688">
-                                    <path d="M885.344,319.071l-258-3.8l-102.7-264.399c-19.8-48.801-88.899-48.801-108.6,0l-102.7,264.399l-258,3.8 c-53.4,3.101-75.1,70.2-33.7,103.9l209.2,181.4l-71.3,247.7c-14,50.899,41.1,92.899,86.5,65.899l224.3-122.7l224.3,122.601 c45.4,27,100.5-15,86.5-65.9l-71.3-247.7l209.2-181.399C960.443,389.172,938.744,322.071,885.344,319.071z" />
-                                    </svg>
-                                    <svg width="100" height="100" viewBox="0 0 940.688 940.688">
-                                    <path d="M885.344,319.071l-258-3.8l-102.7-264.399c-19.8-48.801-88.899-48.801-108.6,0l-102.7,264.399l-258,3.8 c-53.4,3.101-75.1,70.2-33.7,103.9l209.2,181.4l-71.3,247.7c-14,50.899,41.1,92.899,86.5,65.899l224.3-122.7l224.3,122.601 c45.4,27,100.5-15,86.5-65.9l-71.3-247.7l209.2-181.399C960.443,389.172,938.744,322.071,885.344,319.071z" />
-                                    </svg>
-                                    <svg width="100" height="100" viewBox="0 0 940.688 940.688">
-                                    <path d="M885.344,319.071l-258-3.8l-102.7-264.399c-19.8-48.801-88.899-48.801-108.6,0l-102.7,264.399l-258,3.8 c-53.4,3.101-75.1,70.2-33.7,103.9l209.2,181.4l-71.3,247.7c-14,50.899,41.1,92.899,86.5,65.899l224.3-122.7l224.3,122.601 c45.4,27,100.5-15,86.5-65.9l-71.3-247.7l209.2-181.399C960.443,389.172,938.744,322.071,885.344,319.071z" />
-                                    </svg>
-                                    <svg width="100" height="100" viewBox="0 0 940.688 940.688">
-                                    <path d="M885.344,319.071l-258-3.8l-102.7-264.399c-19.8-48.801-88.899-48.801-108.6,0l-102.7,264.399l-258,3.8 c-53.4,3.101-75.1,70.2-33.7,103.9l209.2,181.4l-71.3,247.7c-14,50.899,41.1,92.899,86.5,65.899l224.3-122.7l224.3,122.601 c45.4,27,100.5-15,86.5-65.9l-71.3-247.7l209.2-181.399C960.443,389.172,938.744,322.071,885.344,319.071z" />
-                                    </svg>
-                                    <div class="overlay"></div>
-                                </div>
+                            <p class="stext-102 cl3 p-t-23">
+                                ${product.getDescription()}
+                            </p>
+                            <p class="mtext-106 cl2 mt-3 pb-1">Customer's Feedback:</p>
+                            <div class="stars">
+                                <svg width="100" height="100" viewBox="0 0 940.688 940.688">
+                                <path d="M885.344,319.071l-258-3.8l-102.7-264.399c-19.8-48.801-88.899-48.801-108.6,0l-102.7,264.399l-258,3.8 c-53.4,3.101-75.1,70.2-33.7,103.9l209.2,181.4l-71.3,247.7c-14,50.899,41.1,92.899,86.5,65.899l224.3-122.7l224.3,122.601 c45.4,27,100.5-15,86.5-65.9l-71.3-247.7l209.2-181.399C960.443,389.172,938.744,322.071,885.344,319.071z" />
+                                </svg>
+                                <svg width="100" height="100" viewBox="0 0 940.688 940.688">
+                                <path d="M885.344,319.071l-258-3.8l-102.7-264.399c-19.8-48.801-88.899-48.801-108.6,0l-102.7,264.399l-258,3.8 c-53.4,3.101-75.1,70.2-33.7,103.9l209.2,181.4l-71.3,247.7c-14,50.899,41.1,92.899,86.5,65.899l224.3-122.7l224.3,122.601 c45.4,27,100.5-15,86.5-65.9l-71.3-247.7l209.2-181.399C960.443,389.172,938.744,322.071,885.344,319.071z" />
+                                </svg>
+                                <svg width="100" height="100" viewBox="0 0 940.688 940.688">
+                                <path d="M885.344,319.071l-258-3.8l-102.7-264.399c-19.8-48.801-88.899-48.801-108.6,0l-102.7,264.399l-258,3.8 c-53.4,3.101-75.1,70.2-33.7,103.9l209.2,181.4l-71.3,247.7c-14,50.899,41.1,92.899,86.5,65.899l224.3-122.7l224.3,122.601 c45.4,27,100.5-15,86.5-65.9l-71.3-247.7l209.2-181.399C960.443,389.172,938.744,322.071,885.344,319.071z" />
+                                </svg>
+                                <svg width="100" height="100" viewBox="0 0 940.688 940.688">
+                                <path d="M885.344,319.071l-258-3.8l-102.7-264.399c-19.8-48.801-88.899-48.801-108.6,0l-102.7,264.399l-258,3.8 c-53.4,3.101-75.1,70.2-33.7,103.9l209.2,181.4l-71.3,247.7c-14,50.899,41.1,92.899,86.5,65.899l224.3-122.7l224.3,122.601 c45.4,27,100.5-15,86.5-65.9l-71.3-247.7l209.2-181.399C960.443,389.172,938.744,322.071,885.344,319.071z" />
+                                </svg>
+                                <svg width="100" height="100" viewBox="0 0 940.688 940.688">
+                                <path d="M885.344,319.071l-258-3.8l-102.7-264.399c-19.8-48.801-88.899-48.801-108.6,0l-102.7,264.399l-258,3.8 c-53.4,3.101-75.1,70.2-33.7,103.9l209.2,181.4l-71.3,247.7c-14,50.899,41.1,92.899,86.5,65.899l224.3-122.7l224.3,122.601 c45.4,27,100.5-15,86.5-65.9l-71.3-247.7l209.2-181.399C960.443,389.172,938.744,322.071,885.344,319.071z" />
+                                </svg>
+                                <div class="overlay"></div>
+                            </div>
 
-                                <!--  -->
+                            <!--  -->
+                            <form id="add-to-card-form" action="cart?mode=add" method="post">
+
                                 <div class="p-t-33">
                                     <div class="flex-w flex-r-m p-b-10">
                                         <div class="size-203 flex-c-m respon6">
@@ -159,94 +161,147 @@
                                         </div>
                                         <div class="size-204 respon6-next">
                                             <div class="rs1-select2 bor8 bg0">
-                                                <select class="js-select2" name="size">
-                                                    <option>Choose an option</option>
-                                                    <option value="37">Size 37</option>
-                                                    <option value="38">Size 38</option>
-                                                    <option value="39">Size 39</option>
-                                                    <option value="40">Size 40</option>
-                                                    <option value="41">Size 41</option>
-                                                    <option value="41">Size 42</option>
-                                                    <option value="43">Size 43</option>
+                                                <select onchange="displayQuantity()" id="size" class="js-select2" name="size" required>
+                                                    <option value="">Please choose your size...</option>
+                                                    <c:forEach items="${product.getListSize()}" var="s">
+                                                        <option value="${s.getSize()}">Size ${s.getSize()}</option>
+                                                    </c:forEach>
                                                 </select>
                                                 <div class="dropDownSelect2"></div>
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="flex-w flex-r-m p-b-10">
-                                        <form id="add-to-card-form" action="cart?mode=add" method="get">
-                                            <div class="size-204 flex-w flex-m respon6-next">
-                                                <div class="wrap-num-product flex-w m-r-20 m-tb-10">
-                                                    <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
-                                                        <i class="fs-16 zmdi zmdi-minus"></i>
-                                                    </div>
-                                                    
-                                                    <input type="text" name="mode" value="add" hidden/>
-                                                    <input type="text" name="pid" value="${product.getId()}" hidden/>
-                                                    <input class="mtext-104 cl3 txt-center num-product" type="number" name="quantity" value="1">
-
-                                                    <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
-                                                        <i class="fs-16 zmdi zmdi-plus"></i>
-                                                    </div>
-                                                </div>
-
-                                                <button type="submit" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
-                                                    Add to cart
-                                                </button>
-                                            </div>
-                                        </form>
-                                        
-                                    </div>	
-                                </div>
-
-                                <!--  -->
-                                <div class="flex-w flex-m p-l-100 p-t-40 respon7">
-                                    <div class="flex-m bor9 p-r-10 m-r-11">
-                                        <a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 js-addwish-detail tooltip100" data-tooltip="Add to Wishlist">
-                                            <i class="zmdi zmdi-favorite"></i>
-                                        </a>
+                                        <div class="size-203 flex-c-m respon6">
+                                            Available:
+                                        </div>
+                                        <div class="size-204 respon6-next">
+                                            <p id="size_quantity"></p>
+                                        </div>
                                     </div>
 
-                                    <a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Facebook">
-                                        <i class="fa fa-facebook"></i>
-                                    </a>
 
-                                    <a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Twitter">
-                                        <i class="fa fa-twitter"></i>
-                                    </a>
+                                    <div class="flex-w flex-r-m p-b-10">
+                                        <div class="size-204 flex-w flex-m respon6-next">
+                                            <div class="wrap-num-product flex-w m-r-20 m-tb-10">
+                                                <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
+                                                    <i class="fs-16 zmdi zmdi-minus"></i>
+                                                </div>
 
-                                    <a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Google Plus">
-                                        <i class="fa fa-google-plus"></i>
+                                                <input type="text" name="mode" value="add" hidden/>
+                                                <input type="text" name="pid" value="${product.getId()}" hidden/>
+                                                <input id="input_quantity" class="mtext-104 cl3 txt-center num-product" type="number" name="quantity" value="1">
+
+                                                <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
+                                                    <i class="fs-16 zmdi zmdi-plus"></i>
+                                                </div>
+                                            </div>
+
+                                                <button type="button" onclick="handleAddCart()" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
+                                                Add to cart
+                                            </button>
+                                                <p id="alert_soldout" style="color: red"></p>
+                                        </div>
+
+
+                                    </div>	
+                                </div>
+                            </form>
+
+                            <!--  -->
+                            <div class="flex-w flex-m p-l-100 p-t-40 respon7">
+                                <div class="flex-m bor9 p-r-10 m-r-11">
+                                    <a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 js-addwish-detail tooltip100" data-tooltip="Add to Wishlist">
+                                        <i class="zmdi zmdi-favorite"></i>
                                     </a>
                                 </div>
+
+                                <a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Facebook">
+                                    <i class="fa fa-facebook"></i>
+                                </a>
+
+                                <a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Twitter">
+                                    <i class="fa fa-twitter"></i>
+                                </a>
+
+                                <a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Google Plus">
+                                    <i class="fa fa-google-plus"></i>
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
 
 
 
-            <!-- Footer -->
+        <!-- Footer -->
         <jsp:include page="userIncludes/footer.jsp"></jsp:include>
-        <!-- End Footer -->
+            <!-- End Footer -->
 
-        <!--============================================== Script =================================================-->
-        <script src="asset/vendor/jquery/jquery-3.2.1.min.js"></script>
+            <!--============================================== Script =================================================-->
+            <script src="asset/vendor/jquery/jquery-3.2.1.min.js"></script>
 
-        <script src="asset/vendor/animsition/js/animsition.min.js"></script>
+            <script src="asset/vendor/animsition/js/animsition.min.js"></script>
 
-        <script src="asset/vendor/bootstrap/js/popper.js"></script>
-        <script src="asset/vendor/bootstrap/js/bootstrap.min.js"></script>
+            <script src="asset/vendor/bootstrap/js/popper.js"></script>
+            <script src="asset/vendor/bootstrap/js/bootstrap.min.js"></script>
 
-        <script src="asset/vendor/select2/select2.min.js"></script>
-        <script>
-            document.querySelector('.overlay').style.width = `${100 - product.getFeedback()}%`;
-            console.log(${100 - product.getFeedback()});
+            <script src="asset/vendor/select2/select2.min.js"></script>
+            <script>
+                                                document.querySelector('.overlay').style.width = `${100 - product.getFeedback()}%`;
+                                                console.log(${100 - product.getFeedback()});
         </script>
         <script>
+            function displayQuantity() {
+                let place = document.getElementById("size_quantity");
+                let size = $("#size").val();
+                console.log(size);
+                if (size ==  "") {
+                    place.innerHTML = "";
+                } else
+                if (size == 37) {
+                    place.innerHTML = ${product.getSizeQuantity(37)};
+                } else
+                if (size == 38) {
+                    place.innerHTML = ${product.getSizeQuantity(38)};
+                } else
+                if (size == 39) {
+                    place.innerHTML = ${product.getSizeQuantity(39)};
+                } else
+                if (size == 40) {
+                    place.innerHTML = ${product.getSizeQuantity(40)};
+                } else
+                if (size == 41) {
+                    place.innerHTML = ${product.getSizeQuantity(41)};
+                } else
+                if (size == 42) {
+                    place.innerHTML = ${product.getSizeQuantity(42)};
+                } else
+                if (size == 43) {
+                    place.innerHTML = ${product.getSizeQuantity(43)};
+                }
+            }
             
+            function handleAddCart() {
+                let available = document.getElementById("size_quantity").innerHTML;
+                let buy_quantity = $("#input_quantity").val();
+                if (available == ""){
+                    document.getElementById("alert_soldout").innerHTML = "Please choose your size before add to cart!";
+                } else if (available == 0) {
+                    document.getElementById("alert_soldout").innerHTML = "The size is sold out! Please choose another size or comeback later!";
+                } else if (buy_quantity > available) {
+                    document.getElementById("alert_soldout").innerHTML = "Your number of product is out of our available range!";
+                } else {
+                    let my_form = document.getElementById("add-to-card-form");
+                    my_form.submit();
+                }
+            }
+
+        </script>
+        <script>
+
             $(".js-select2").each(function () {
                 $(this).select2({
                     minimumResultsForSearch: 20,

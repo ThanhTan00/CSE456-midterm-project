@@ -7,13 +7,11 @@ package control;
 import dao.ProductDAO;
 import entity.Brand;
 import entity.Category;
-import entity.Product;
-import entity.SizeQuantity;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,9 +19,9 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author tanle
+ * @author ADMIN
  */
-public class productServlet extends HttpServlet {
+public class accountServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,53 +35,18 @@ public class productServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-        String target = "view/user/product.jsp";
+        String target = "start";
         String mode = request.getParameter("mode");
-        String pageTitle="";
-        
-        HttpSession session = request.getSession();
 
-        ProductDAO productDAO = new ProductDAO();
-        
-        ArrayList<Brand> listBrand = productDAO.getAllBrand();
-        ArrayList<Category> listCategory = productDAO.getAllCategoy();
-        ArrayList<Product> listProduct = new ArrayList<>();
+        HttpSession session = request.getSession();
         
         switch (mode) {
-            case "filter":
-                int brand = Integer.parseInt(request.getParameter("brand"));
-                listProduct = productDAO.getProductByBrand(brand);
-                for (Brand b : listBrand) {
-                    if (b.getId() == brand){
-                        pageTitle = b.getName();
-                    }
-                }
-                request.setAttribute("listProduct", listProduct);
+            case "signin": {
+                String email =  request.getParameter("email");
+                String password = request.getParameter("password");
                 break;
-            case "detail":
-                target="view/user/productDetail.jsp";
-                String id = request.getParameter("id");
-                Product product = productDAO.getProductById(id);
-                ArrayList<SizeQuantity> listSize = productDAO.getSizeQuantityByProductId(id);
-                product.setListSize(listSize);
-                request.setAttribute("product", product);
-                break;
-            case "search":
-                String search = request.getParameter("search_value");
-                session.setAttribute("searchValue", search);
-                listProduct = productDAO.searchProductByName(search);
-                request.setAttribute("listProduct", listProduct);
-                break;
+            }
         }
-        
-        request.setAttribute("page_title", pageTitle);
-        request.setAttribute("activeTab", 1);
-        request.setAttribute("listBrand", listBrand);
-        request.setAttribute("listCategory", listCategory);
-        
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher(target);
-        requestDispatcher.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

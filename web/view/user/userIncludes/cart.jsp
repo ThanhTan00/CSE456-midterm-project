@@ -25,9 +25,13 @@
                         </div>
 
                         <div class="header-cart-item-txt p-t-8">
-                            <a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
+                            <a href="product?mode=detail&id=${i.getProduct().getId()}" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
                                 ${i.getProduct().getName()}
                             </a>
+                            
+                            <span class="header-cart-item-info">
+                                Size ${i.getSize()}
+                            </span>
 
                             <span class="header-cart-item-info">
                                 ${i.getQuantity()} * ${i.getProduct().getFormatedPrice()}
@@ -39,8 +43,11 @@
             </ul>
 
             <div class="w-full">
+                <div class="header-cart-total w-full">
+                    Products : ${cart.getTotalQuantity()}
+                </div>
                 <div class="header-cart-total w-full p-tb-40">
-                    ${cart.getFormatedTotalPrice(cart.getTotalMoney())}
+                    Total : ${cart.getFormatedTotalPrice(cart.getTotalMoney())}
                 </div>
 
                 <div class="header-cart-buttons flex-w w-full">

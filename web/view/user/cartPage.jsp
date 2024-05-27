@@ -60,41 +60,35 @@
             <form class="bg0 p-t-100 p-b-85">
                 <div class="container">
                     <div class="row">
-                        <div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
+                        <div class="col-lg-10 col-xl-8 m-lr-auto m-b-50">
                             <div class="m-l-25 m-r--38 m-lr-0-xl">
                                 <div class="wrap-table-shopping-cart">
                                     <table class="table-shopping-cart">
                                         <tr class="table_head">
+                                            <th class="column-6">Remove</th>
                                             <th class="column-1">Product</th>
                                             <th class="column-2"></th>
-                                            <th class="column-3">Price</th>
-                                            <th class="column-4">Quantity</th>
-                                            <th class="column-5">Total</th>
+                                            <th class="column-6">Size</th>
+                                            <th class="column-4">Price</th>
+                                            <th class="column-5">Quantity</th>
+                                            <th class="column-6">Total</th>
                                         </tr>
                                     <c:forEach items="${cart.items}" var="i">
 
                                         <tr class="table_row">
+                                            <td class="column-6"><a href="cart?mode=remove&pid=${i.getProduct().getId()}"><i class="fa fa-remove" style="font-size:36px;color:red"></i></a></td>
                                             <td class="column-1">
                                                 <div class="how-itemcart1">
                                                     <img src="${i.getProduct().getImage()}" alt="IMG">
                                                 </div>
                                             </td>
-                                            <td class="column-2">${i.getProduct().getName()}</td>
-                                            <td class="column-3">${i.getProduct().getFormatedPrice()}</td>
-                                            <td class="column-4">
-                                                <div class="wrap-num-product flex-w m-l-auto m-r-0">
-                                                    <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
-                                                        <i class="fs-16 zmdi zmdi-minus"></i>
-                                                    </div>
-
-                                                    <input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product1" value="${i.getQuantity()}">
-
-                                                    <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
-                                                        <i class="fs-16 zmdi zmdi-plus"></i>
-                                                    </div>
-                                                </div>
+                                            <td class="column-2"><a style="color: black" href="product?mode=detail&id=${i.getProduct().getId()}">${i.getProduct().getName()}</a></td>
+                                            <td class="column-6">${i.getSize()}</td>
+                                            <td class="column-4">${i.getProduct().getFormatedPrice()}</td>
+                                            <td class="column-5">
+                                                ${i.getQuantity()}
                                             </td>
-                                            <td class="column-5">${i.getFormatedItemPrice()}</td>
+                                            <td class="column-6">${i.getFormatedItemPrice()}</td>
                                         </tr>
                                     </c:forEach>
                                 </table>
@@ -108,15 +102,17 @@
                                         Apply coupon
                                     </div>
                                 </div>
-
-                                <div class="flex-c-m stext-101 cl2 size-119 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-10">
-                                    Update Cart
+                                <div class="flex-w flex-m m-r-20 m-tb-5">
+                                    <a href="cart?mode=empty"><div class="flex-c-m stext-101 cl2 size-118 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-5">
+                                        Empty Cart
+                                    </div></a>
                                 </div>
+
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-b-50">
+                    <div class="col-sm-10 col-lg-7 col-xl-4 m-lr-auto m-b-50">
                         <div class="bor10 p-lr-40 p-t-30 p-b-40 m-l-63 m-r-40 m-lr-0-xl p-lr-15-sm">
                             <h4 class="mtext-109 cl2 p-b-30">
                                 Cart Totals

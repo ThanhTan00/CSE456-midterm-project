@@ -14,6 +14,7 @@ import java.util.Locale;
  */
 public class Item {
     private Product product;
+    int size;
     private int quantity;
     private double totalPrice;
     
@@ -21,8 +22,9 @@ public class Item {
         
     }
 
-    public Item(Product product, int quantity) {
+    public Item(Product product, int size, int quantity) {
         this.product = product;
+        this.size = size;
         this.quantity = quantity;
     }
 
@@ -45,6 +47,16 @@ public class Item {
     public double getItemPrice() {
         return product.getPrice()*quantity;
     }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
+    
+    
     
     public String getFormatedItemPrice() {
         Locale locale = new Locale("vi", "VN");

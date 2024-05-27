@@ -6,6 +6,7 @@ package entity;
 
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.Currency;
 import java.util.Locale;
 
@@ -22,6 +23,7 @@ public class Product {
     private int brand;
     private String description;
     private int feedback;
+    private ArrayList<SizeQuantity> listSize = null;
     
     public Product(){}
 
@@ -107,6 +109,24 @@ public class Product {
     public void setFeedback(int feedback) {
         this.feedback = feedback;
     }
+
+    public ArrayList<SizeQuantity> getListSize() {
+        return listSize;
+    }
+
+    public void setListSize(ArrayList<SizeQuantity> listSize) {
+        this.listSize = listSize;
+    }
+    
+    public int getSizeQuantity(int size) {
+        for (SizeQuantity s : this.listSize){
+            if (s.getSize() == size){
+                return s.getQuantity();
+            }
+        }
+        return 0;
+    }
+    
     
     
     @Override

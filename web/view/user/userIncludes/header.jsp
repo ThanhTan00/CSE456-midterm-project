@@ -41,8 +41,9 @@
             <!-- Logo desktop -->		
             <a href="start" class="logo mr-0" align="end">
                 <img src="images/icons/favicon.png" alt="IMG-LOGO">
+
+                <strong><span style="color: #747474">TAN'</span><span style="color: #444444">S</span><span style="color: black">HOES</span></strong>
             </a>
-            <strong><span style="color: #747474">TAN'</span><span style="color: #444444">S</span><span style="color: black">HOES</span></strong>
 
             <!-- Menu desktop -->
             <div class="menu-desktop">
@@ -54,8 +55,8 @@
                         <a href="navigate?target=shop">Shop</a>
                         <ul class="sub-menu">
                             <c:forEach items="${listBrand}" var="b">
-                            <li><a href="product?mode=filter&brand=${b.getId()}">${b.getName()}</a></li>
-                            </c:forEach>
+                                <li><a href="product?mode=filter&brand=${b.getId()}">${b.getName()}</a></li>
+                                </c:forEach>
                         </ul>
                     </li>
 
@@ -79,7 +80,7 @@
                     <i class="zmdi zmdi-search"></i>
                 </div>
 
-                <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="2">
+                <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart"  data-notify="${cart.getTotalQuantity()!=null ? cart.getTotalQuantity() : 0}">
                     <i class="zmdi zmdi-shopping-cart"></i>
                 </div>
 

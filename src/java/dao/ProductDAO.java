@@ -8,6 +8,7 @@ import context.DBContext;
 import entity.Brand;
 import entity.Category;
 import entity.Product;
+import entity.SizeQuantity;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,6 +16,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import jdk.internal.org.jline.terminal.Size;
 import org.apache.jasper.tagplugins.jstl.core.Catch;
 
 /**
@@ -213,6 +215,27 @@ public class ProductDAO {
             System.out.println(e.getMessage());
         }
         return product;
+    }
+    
+    public ArrayList<SizeQuantity> getSizeQuantityByProductId(String id){
+        ArrayList<SizeQuantity> listSize = new ArrayList<>();
+        String query = "select size, quantity from size_quantity where product_id = '"+id+"';";
+        try {
+            con = DBContext.getConnection();
+            ps = con.prepareStatement(query);
+            rs = ps.executeQuery(query);
+            while (rs.next()) {
+                SizeQuantity sizequanity = new SizeQuantity(
+                   rs.getInt(1),
+                   rs.getInt(2)     
+                );
+                listSize.add(sizequanity);
+            }
+            con.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return listSize;
     }
 
     public static void main(String[] args) {

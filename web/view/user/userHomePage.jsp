@@ -41,7 +41,7 @@
             <!--End Header-->
 
             <!-- Cart -->
-            <jsp:include page="userIncludes/cart.jsp"></jsp:include>
+        <jsp:include page="userIncludes/cart.jsp"></jsp:include>
             <!-- End Cart -->
 
             <!-- Slider -->
@@ -215,6 +215,11 @@
             <!-- Product -->
             <section class="bg0 p-t-23 p-b-140">
                 <div class="container">
+                    <div class="p-b-10">
+                        <h3 class="ltext-103 cl5">
+                            Latest Arrivals
+                        </h3>
+                    </div>
                 <jsp:include page="userIncludes/categoriesNavBar.jsp"></jsp:include>
 
                     <div class="row isotope-grid">
@@ -223,12 +228,10 @@
                             <!-- Block2 -->
                             <div class="block2">
                                 <div class="block2-pic hov-img0">
-                                    <a href="product?mode=detail&id=${p.getId()}">
                                     <img style="height: 350px;" class="img-fluid" src="${p.getImage()}" alt="IMG-PRODUCT">
-                                    </a>
 
-                                    <a href="cart?mode=add&pid=${p.getId()}&quantity=1" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
-                                        Add to cart
+                                    <a href="product?mode=detail&id=${p.getId()}" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
+                                        View Details
                                     </a>
                                 </div>
 

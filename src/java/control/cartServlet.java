@@ -52,23 +52,25 @@ public class cartServlet extends HttpServlet {
         HttpSession session = request.getSession();
 
         switch (mode) {
-            case "view":
+            case "view": {
                 target = "navigate?target=cart";
                 break;
-            case "add":
+            }
+            case "add": {
                 target = "navigate?target=cart";
                 String pid = request.getParameter("pid");
                 int quantity = Integer.parseInt(request.getParameter("quantity"));
+                int size = Integer.parseInt(request.getParameter("size"));
 
                 Product product = productDAO.getProductById(pid);
 
                 if (isCart(session)) {
                     Cart cart = (Cart) session.getAttribute("cart");
 
-                    if (isItem(cart, pid)) {
+                    if (isItem(cart, pid, size)) {
                         cart.getItemById(pid).setQuantity(quantity);
                     } else {
-                        Item i = new Item(product, quantity);
+                        Item i = new Item(product, size, quantity);
                         cart.addItem(i);
                     }
 
@@ -76,11 +78,26 @@ public class cartServlet extends HttpServlet {
 
                 } else {
                     Cart cart = new Cart();
-                    Item i = new Item(product, quantity);
+                    Item i = new Item(product, size, quantity);
                     cart.addItem(i);
                     session.setAttribute("cart", cart);
                 }
                 break;
+            }
+            case "remove": {
+                target = "navigate?target=cart";
+                String id = request.getParameter("pid");
+                Cart cart = (Cart) session.getAttribute("cart");
+                cart.removeItem(id);
+                session.setAttribute("cart", cart);
+                break;
+            }
+            case "empty": {
+                target = "navigate?target=cart";
+                Cart cart = (Cart) session.getAttribute("cart");
+                cart.getItems().clear();
+                break;
+            }
         }
 
         request.setAttribute("listBrand", listBrand);
@@ -94,10 +111,12 @@ public class cartServlet extends HttpServlet {
         return (session.getAttribute("cart") != null);
     }
 
-    public static boolean isItem(Cart c, String id) {
+    public static boolean isItem(Cart c, String id, int size) {
         for (Item i : c.getItems()) {
             if (i.getProduct().getId().equalsIgnoreCase(id)) {
-                return true;
+                if (i.getSize() == size) {
+                    return true;
+                }
             }
         }
         return false;
