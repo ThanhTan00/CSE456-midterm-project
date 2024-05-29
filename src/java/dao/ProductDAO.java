@@ -60,6 +60,34 @@ public class ProductDAO {
         return productList;
     }
 
+    public ArrayList<Product> getAllDisableProduct() {
+        ArrayList<Product> productList = new ArrayList<Product>();
+        String query = "SELECT * FROM product where enable = '0' order by product_id desc;";
+
+        try {
+            con = DBContext.getConnection();
+            ps = con.prepareStatement(query);
+            rs = ps.executeQuery(query);
+            while (rs.next()) {
+                Product product = new Product(rs.getString(1),
+                        rs.getString(2),
+                        "images\\product-images\\" + rs.getString(3),
+                        rs.getDouble(4),
+                        rs.getInt(5),
+                        rs.getInt(6),
+                        rs.getString(7),
+                        rs.getInt(8)
+                );
+                productList.add(product);
+            }
+            ps.close();
+            con.close();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return productList;
+    }
+
     public ArrayList<Category> getAllCategoy() {
         ArrayList<Category> listCategory = new ArrayList<>();
         String query = "SELECT * FROM category;";
@@ -190,10 +218,10 @@ public class ProductDAO {
         }
         return list;
     }
-    
+
     public Product getProductById(String id) {
-        Product product= null;
-        String query = "select * from product where product_id = '"+id+"'";
+        Product product = null;
+        String query = "select * from product where product_id = '" + id + "'";
         try {
             con = DBContext.getConnection();
             ps = con.prepareStatement(query);
@@ -216,18 +244,18 @@ public class ProductDAO {
         }
         return product;
     }
-    
-    public ArrayList<SizeQuantity> getSizeQuantityByProductId(String id){
+
+    public ArrayList<SizeQuantity> getSizeQuantityByProductId(String id) {
         ArrayList<SizeQuantity> listSize = new ArrayList<>();
-        String query = "select size, quantity from size_quantity where product_id = '"+id+"';";
+        String query = "select size, quantity from size_quantity where product_id = '" + id + "';";
         try {
             con = DBContext.getConnection();
             ps = con.prepareStatement(query);
             rs = ps.executeQuery(query);
             while (rs.next()) {
                 SizeQuantity sizequanity = new SizeQuantity(
-                   rs.getInt(1),
-                   rs.getInt(2)     
+                        rs.getInt(1),
+                        rs.getInt(2)
                 );
                 listSize.add(sizequanity);
             }
@@ -236,6 +264,30 @@ public class ProductDAO {
             System.out.println(e.getMessage());
         }
         return listSize;
+    }
+
+    public void disableProduct(String id) {
+        String query = "UPDATE product SET enable = 0 WHERE  product_id = '" + id + "'";
+        try {
+            con = DBContext.getConnection();
+            ps = con.prepareStatement(query);
+            ps.executeUpdate();
+            con.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public void enableProduct(String id) {
+        String query = "UPDATE product SET enable = 1 WHERE  product_id = '" + id + "'";
+        try {
+            con = DBContext.getConnection();
+            ps = con.prepareStatement(query);
+            ps.executeUpdate();
+            con.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public static void main(String[] args) {

@@ -23,7 +23,6 @@
                 <a class="nav-link" href="AdminServlet?mode=storeManage">
                     <i class="fas fa-tachometer-alt"></i>
                        Manage Store
-                    <span class="sr-only">(current)</span>
                 </a>
             </li>
             <li ${active==2? "class='nav-item active'":"class='nav-item'"} >
@@ -56,7 +55,7 @@
           </ul>
           <ul class="navbar-nav">
             <li class="nav-item ${active==5?'active':''}">
-                <a class="d-block nav-link" href="AdminServlet?mode=personalProfile">Hello ${sessionScope.account.getIsAdmin()==1?"Admin":"Staff"}!!</a>
+                <a class="d-block nav-link" href="AdminServlet?mode=personalProfile">${sessionScope.account.getName()}!!</a>
             </li>
             <li class="nav-item">
                 <a class="d-block nav-link" href="AdminServlet?mode=logout"><b>Logout</b></a>

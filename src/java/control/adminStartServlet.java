@@ -4,11 +4,12 @@
  */
 package control;
 
-import dao.AccountDAO;
+import com.mysql.cj.Session;
 import dao.ProductDAO;
 import entity.Account;
 import entity.Brand;
 import entity.Category;
+import entity.Product;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author ADMIN
  */
-public class accountServlet extends HttpServlet {
+public class adminStartServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,34 +39,17 @@ public class accountServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String target = "start";
-        String mode = request.getParameter("mode");
-
         HttpSession session = request.getSession();
-        AccountDAO accountDAO = new AccountDAO();
-        
-        switch (mode) {
-            case "signin": {
-                String email =  request.getParameter("email");
-                String password = request.getParameter("password");
-                
-                Account account = accountDAO.getAccount(email, password);
-                
-                if (account == null) {
-                    target="navigate?target=signin";
-                    request.setAttribute("error", "Wrong email or password. Please try again!");
-                } else {
-                    session.setAttribute("account", account);
-                    if (account.getIsAdmin() == 1){
-                        target = "admin";
-                    } else {
-                        target = "start";
-                    }
-                }
-                
-                break;
-            }
+        Account account = (Account) session.getAttribute("account");
+        String target="";
+
+        if (account == null || account.getIsAdmin() == 0) {
+            target = "start";
+        } else {
+            target = "manage?mode=productManage";
         }
+        
+        
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(target);
         requestDispatcher.forward(request, response);
     }

@@ -4,11 +4,11 @@
  */
 package control;
 
-import dao.AccountDAO;
 import dao.ProductDAO;
 import entity.Account;
 import entity.Brand;
 import entity.Category;
+import entity.Product;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author ADMIN
  */
-public class accountServlet extends HttpServlet {
+public class adminServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,35 +38,59 @@ public class accountServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String target = "start";
-        String mode = request.getParameter("mode");
+        String target = "";
 
         HttpSession session = request.getSession();
-        AccountDAO accountDAO = new AccountDAO();
-        
-        switch (mode) {
-            case "signin": {
-                String email =  request.getParameter("email");
-                String password = request.getParameter("password");
-                
-                Account account = accountDAO.getAccount(email, password);
-                
-                if (account == null) {
-                    target="navigate?target=signin";
-                    request.setAttribute("error", "Wrong email or password. Please try again!");
-                } else {
-                    session.setAttribute("account", account);
-                    if (account.getIsAdmin() == 1){
-                        target = "admin";
-                    } else {
-                        target = "start";
-                    }
+        Account account = (Account) session.getAttribute("account");
+
+        if (account == null || account.getIsAdmin() == 0) {
+            target = "start";
+        } else {
+            String mode = request.getParameter("mode");
+            ProductDAO productDAO = new ProductDAO();
+            int nav;
+            switch (mode) {
+                case "productManage": {
+                    nav = 1;
+                    target = "view/admin/ManagerProduct.jsp";
+                    ArrayList<Product> listP = productDAO.getAllProduct();
+                    ArrayList<Brand> listB = productDAO.getAllBrand();
+                    ArrayList<Category> listC = productDAO.getAllCategoy();
+
+                    request.setAttribute("listP", listP);
+                    request.setAttribute("listB", listB);
+                    request.setAttribute("listC", listC);
+                    request.setAttribute("nav", nav);
+                    break;
                 }
-                
-                break;
+                case "disableProduct": {
+                    nav = 2;
+                    target = "view/admin/ManagerProduct.jsp";
+                    ArrayList<Product> listP = productDAO.getAllDisableProduct();
+                    ArrayList<Brand> listB = productDAO.getAllBrand();
+                    ArrayList<Category> listC = productDAO.getAllCategoy();
+
+                    request.setAttribute("listP", listP);
+                    request.setAttribute("listB", listB);
+                    request.setAttribute("listC", listC);
+                    request.setAttribute("nav", nav);
+                    break;
+                }
+                case "delete": {
+                    target = "manage?mode=productManage";
+                    String pid = request.getParameter("pid");
+                    productDAO.disableProduct(pid);
+                    break;
+                }
+                case "enableProduct": {
+                    target = "manage?mode=disableProduct";
+                    String pid = request.getParameter("pid");
+                    productDAO.enableProduct(pid);
+                    break;
+                }
             }
         }
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher(target);
+         RequestDispatcher requestDispatcher = request.getRequestDispatcher(target);
         requestDispatcher.forward(request, response);
     }
 

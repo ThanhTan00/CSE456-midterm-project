@@ -270,7 +270,7 @@
         <!-- Footer -->
         <jsp:include page="userIncludes/footer.jsp"></jsp:include>
         <!-- End Footer -->
-        `
+       
 
         <!--============================================== Script =================================================-->
         <script src="asset/vendor/jquery/jquery-3.2.1.min.js"></script>
