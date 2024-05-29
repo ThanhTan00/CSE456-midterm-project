@@ -44,7 +44,7 @@ public class startServlet extends HttpServlet {
         ConfigInfo.setCtxRealPath(ctxFullPath);
         
         ProductDAO productDAO = new ProductDAO();
-        ArrayList<Product> listP = productDAO.getAllProduct();
+        ArrayList<Product> listP = productDAO.getLatestProducts();
         ArrayList<Category> listC = productDAO.getAllCategoy();
         ArrayList<Brand> lisB = productDAO.getAllBrand();
         

@@ -2,7 +2,7 @@
 
 <nav class="navbar navbar-expand-xl">
       <div class="container h-100">
-        <a class="navbar-brand" href="AdminStartServlet">
+        <a class="navbar-brand" href="admin">
           <h1 class="tm-site-title mb-0">Manager Page</h1>
         </a>
         <button
@@ -22,11 +22,11 @@
             <li ${active==4? "class='nav-item active'":"class='nav-item'"}>
                 <a class="nav-link" href="AdminServlet?mode=storeManage">
                     <i class="fas fa-tachometer-alt"></i>
-                       Manage Store
+                       DASHBOARD
                 </a>
             </li>
             <li ${active==2? "class='nav-item active'":"class='nav-item'"} >
-              <a class="nav-link" href="AdminServlet?mode=productManage">
+              <a class="nav-link" href="manage?mode=productManage">
                 <i class="fas fa-shopping-cart"></i>Manage Product
               </a>
             </li>
@@ -54,11 +54,11 @@
             </li>
           </ul>
           <ul class="navbar-nav">
-            <li class="nav-item ${active==5?'active':''}">
+            <li class="d-flex justify-between nav-item ${active==5?'active':''}">
                 <a class="d-block nav-link" href="AdminServlet?mode=personalProfile">${sessionScope.account.getName()}!!</a>
             </li>
             <li class="nav-item">
-                <a class="d-block nav-link" href="AdminServlet?mode=logout"><b>Logout</b></a>
+                <a class="d-block nav-link" href="account?mode=signout"><b>Logout</b></a>
             </li>
           </ul>
         </div>

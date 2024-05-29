@@ -17,6 +17,15 @@
         <link rel="stylesheet" href="view/admin/css/bootstrap.min.css" />
         <!-- https://getbootstrap.com/ -->
         <link rel="stylesheet" href="view/admin/css/templatemo-style.css">
+        <style>
+            .tm-product-name a {
+                color: #ffffff;
+            }
+            .tm-product-name a:hover {
+                color: goldenrod;
+                text-decoration: underline;
+            }
+        </style>
     </head>
 
     <body id="reportsPage">
@@ -60,7 +69,7 @@
                                     <c:forEach items="${listP}" var="p">
                                         <tr>
                                             <th scope="row">${p.getId()}</th>
-                                            <td class="tm-product-name">${p.getName()}</td>
+                                            <td class="tm-product-name"><a href="manage?mode=productDetail&pid=${p.getId()}"><p class="p-0 m-2">${p.getName()}</p></a></td>
                                             <td><img width="80px" height="70px;" src="${p.getImage()}"></td>
                                             <td>${p.getFormatedPrice()}</td>
                                             <td align="middle">
@@ -90,7 +99,7 @@
                         </div>
                         <!-- table container -->
                         <a
-                            href="ProductServlet?mode=add"
+                            href="manage?mode=addPage"
                             class="btn btn-primary btn-block text-uppercase mb-3">Add new product</a>
                     </div>
                 </div>
@@ -118,7 +127,7 @@
                         <!-- Button trigger modal -->
                         <!-- Button trigger modal -->
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                            Add Category
+                            Add Brand
                         </button>
 
                         <!-- Modal -->
@@ -126,17 +135,17 @@
                             <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 onclick="AddNewCat()" class="modal-title" id="exampleModalLabel">ADD NEW CATEGORY</h5>
+                                        <h5 onclick="AddNewCat()" class="modal-title" id="exampleModalLabel">ADD NEW BRAND</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     
                                     <div id="modal_body" class="modal-body">
-                                            <form action="AdminServlet?mode=newCat" method="post">
+                                            <form action="manage?mode=newBrand" method="post">
                                                 <div class="form-group">
                                                     <label for="cat_name">Category name:</label>
-                                                    <input type="text" class="form-control" name="cat_name" id="cat_name" placeholder="Enter new catregory name">
+                                                    <input type="text" class="form-control" name="brand_name" id="cat_name" placeholder="Enter new catregory name">
                                                 </div>
                                                 <button type="submit" class="btn btn-primary">Add</button>
                                             </form>

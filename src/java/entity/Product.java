@@ -37,6 +37,17 @@ public class Product {
         this.description = description;
         this.feedback = feedback;
     }
+
+    public Product(String name, String image, double price, int category, int brand, String description) {
+        this.name = name;
+        this.image = image;
+        this.price = price;
+        this.category = category;
+        this.brand = brand;
+        this.description = description;
+    }
+    
+    
     
     public String getFormatedPrice() {
         Locale locale = new Locale("vi", "VN");

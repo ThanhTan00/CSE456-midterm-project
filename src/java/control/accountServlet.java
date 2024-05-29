@@ -65,6 +65,12 @@ public class accountServlet extends HttpServlet {
                 
                 break;
             }
+            case "signout": {
+                session.removeAttribute("account");
+                target = "navigate?target=login";
+          
+                break;
+            }
         }
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(target);
         requestDispatcher.forward(request, response);

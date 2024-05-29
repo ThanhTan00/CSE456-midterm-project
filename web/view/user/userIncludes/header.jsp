@@ -16,6 +16,7 @@
             </div>
 
             <div class="right-top-bar flex-w h-full">
+                <c:if test="${account == null || account.getIsAdmin() == 1}">
                 <a href="navigate?target=login" class="flex-c-m trans-04 p-lr-25">
                     Sing in
                 </a>
@@ -23,6 +24,17 @@
                 <a href="navigate?target=register" class="flex-c-m trans-04 p-lr-25">
                     Sign up
                 </a>
+                </c:if>
+                <c:if test="${account.getIsAdmin() == 0}">
+                    <img class="p-2 m-r-3" style="border-radius: 50%;" src="images/blog-06.jpg" width="40px" height="100%" alt="alt"/>
+                <a href="" class="flex-c-m trans-04 p-r-25">
+                    ${account.getName()}
+                </a>
+
+                <a href="account?mode=signout" class="flex-c-m trans-04 p-lr-25">
+                    Sign out
+                </a>  
+                </c:if>
 
                 <a href="#" class="flex-c-m trans-04 p-lr-25">
                     EN

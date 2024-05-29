@@ -38,7 +38,7 @@ public class NavigationServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-        String target = "view/user/userHomePage.jsp";
+        String target = "start";
         ProductDAO productDAO = new ProductDAO();
 
         int activeTab = 0;

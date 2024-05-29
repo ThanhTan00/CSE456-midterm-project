@@ -13,6 +13,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -35,6 +36,34 @@ public class ProductDAO {
     public ArrayList<Product> getAllProduct() {
         ArrayList<Product> productList = new ArrayList<Product>();
         String query = "SELECT * FROM product where enable = '1' order by product_id desc;";
+
+        try {
+            con = DBContext.getConnection();
+            ps = con.prepareStatement(query);
+            rs = ps.executeQuery(query);
+            while (rs.next()) {
+                Product product = new Product(rs.getString(1),
+                        rs.getString(2),
+                        "images\\product-images\\" + rs.getString(3),
+                        rs.getDouble(4),
+                        rs.getInt(5),
+                        rs.getInt(6),
+                        rs.getString(7),
+                        rs.getInt(8)
+                );
+                productList.add(product);
+            }
+            ps.close();
+            con.close();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return productList;
+    }
+    
+    public ArrayList<Product> getLatestProducts() {
+        ArrayList<Product> productList = new ArrayList<Product>();
+        String query = "SELECT * FROM product WHERE enable = '1' ORDER BY product_id DESC LIMIT 8;";
 
         try {
             con = DBContext.getConnection();
@@ -192,7 +221,7 @@ public class ProductDAO {
     }
 
     public ArrayList<Product> searchProductByName(String search) {
-        ArrayList<Product> list = new ArrayList<Product>();
+        ArrayList<Product> list = new ArrayList<>();
         String query = "select * from product where enable = 1 and product_name like '%" + search + "%' order by product_id desc";
         try {
             con = DBContext.getConnection();
@@ -273,7 +302,7 @@ public class ProductDAO {
             ps = con.prepareStatement(query);
             ps.executeUpdate();
             con.close();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -285,16 +314,77 @@ public class ProductDAO {
             ps = con.prepareStatement(query);
             ps.executeUpdate();
             con.close();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+    }
+    
+    public void createProduct(Product p){
+         String query = "INSERT INTO product (product_name, product_image, product_price, cat_id, brand_id, product_description) "
+                 + "VALUES ('"+p.getName()+"','"+p.getImage()+"','"+p.getPrice()+"','"+p.getCategory()+"','"+p.getBrand()+"','"+p.getDescription()+"')";
+         String query2 = "SELECT product_id FROM product ORDER BY product_id DESC LIMIT 1;";
+         String newID="";
+         try {
+            con = DBContext.getConnection();
+            ps = con.prepareStatement(query);
+            ps.executeUpdate();
+            ps.clearParameters();
+            ps = con.prepareStatement(query2);
+            rs = ps.executeQuery(query2);
+            while (rs.next()) {
+                newID = rs.getString(1);
+            }
+            
+         } catch (SQLException e) {
+            System.out.println(e.getMessage());
+         }
+         createSizeQuantity(newID);
+     }
+    
+    public void createSizeQuantity(String id){
+        con = DBContext.getConnection();
+        for (int i = 37; i<=43; i++){
+            String query = "INSERT INTO size_quantity (product_id, size) VALUES ('"+id+"','"+i+"')";
+            try {
+            ps = con.prepareStatement(query);
+            ps.executeUpdate();
+         } catch (SQLException e) {
+            System.out.println(e.getMessage());
+         }
+        }
+    }
+    
+    public void createBrand (String name) {
+        String query = "INSERT INTO brand (brand_name) VALUES ('"+name+"');";
+        con = DBContext.getConnection();
+        try {
+            ps = con.prepareStatement(query);
+            ps.executeUpdate();
+            ps.close();
+            con.close();
+         } catch (SQLException e) {
+            System.out.println(e.getMessage());
+         }
+    }
+    
+    public void updateProductInfo(String id, String name, double price, int cat, int brand, String des) {
+        String query = "UPDATE product SET product_name ='"+name+"', product_price='"+price+"', cat_id='"+cat+"', brand_id='"+brand+"', product_description='"+des+"' WHERE product_id ='"+id+"';";
+        con = DBContext.getConnection();
+        try {
+            ps = con.prepareStatement(query);
+            ps.executeUpdate();
+            ps.close();
+            con.close();
+         } catch (SQLException e) {
+            System.out.println(e.getMessage());
+         }
     }
 
     public static void main(String[] args) {
         ProductDAO productDAO = new ProductDAO();
         ArrayList<Product> products = productDAO.getProductByBrand(1);
-        for (Product p : products) {
-            System.out.println(p);
-        }
+        Product p = new Product("hehe", "hahaha", 2000000, 1, 2, "des");
+        productDAO.createProduct(p);
+        
     }
 }
