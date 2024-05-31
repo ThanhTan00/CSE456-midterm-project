@@ -15,6 +15,13 @@ public abstract class Account {
     private String name;
     private int isAdmin;
 
+    public Account(int id, String email) {
+        this.id = id;
+        this.email = email;
+    }
+    
+    
+
     public Account(int id, String email, String password, String name, int isAdmin) {
         this.id = id;
         this.email = email;

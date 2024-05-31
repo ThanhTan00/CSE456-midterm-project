@@ -52,4 +52,38 @@ public class AccountDAO {
         }
         return null;
     }
+    
+    public Account getAccountByEmail(String email) {
+        String query = "SELECT acc_id, acc_email FROM account WHERE acc_email='"+email+"'";
+         try {
+            con = DBContext.getConnection();
+            ps = con.prepareStatement(query);
+            rs = ps.executeQuery(query);
+            while (rs.next()) {
+                Account account = new Account(
+                        rs.getInt(1),
+                        rs.getString(2)
+                ) {};
+                return account;
+            }
+            ps.close();
+            con.close();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+         return null;
+    }
+    
+    public void createNewAccount(String email, String pass, String name, String gender, String phone, String address) {
+        String query = "INSERT INTO account (acc_email, acc_password, acc_name, acc_gender, acc_phone, acc_address) VALUES ('"+email+"','"+pass+"','"+name+"','"+gender+"','"+phone+"','"+address+"');";
+        con = DBContext.getConnection();
+        try {
+            ps = con.prepareStatement(query);
+            ps.executeUpdate();
+            ps.close();
+            con.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }

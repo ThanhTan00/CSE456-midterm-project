@@ -71,6 +71,40 @@ public class accountServlet extends HttpServlet {
           
                 break;
             }
+            
+            case "signup": {
+                target="navigate?target=register";
+                String message="";
+                
+                String password = request.getParameter("password");
+                String confirmPass = request.getParameter("confirmPass");
+                
+                if (!password.equals(confirmPass)) {
+                    message="Your confirm password does not match!";
+                    request.setAttribute("message", message);
+                } else {
+                    String name = request.getParameter("name");
+                    String email = request.getParameter("email");
+                    String phone = request.getParameter("phone");
+                    String address = request.getParameter("address");
+                    String gender = request.getParameter("gender");
+                    
+                    Account account = accountDAO.getAccountByEmail(email);
+                    
+                    if(account != null) {
+                        message="Your Email has been used. Please try with another email!";
+                        request.setAttribute("message", message);
+                    } else {
+                        accountDAO.createNewAccount(email, password, name, gender, phone, address);
+                        message="Create new account successfully! Please sign in to continue shopping!";
+                        request.setAttribute("error", message);
+                        target="navigate?target=login";
+                    }
+                    
+                }
+                
+                break;
+            }
         }
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(target);
         requestDispatcher.forward(request, response);

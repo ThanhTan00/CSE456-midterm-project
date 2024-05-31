@@ -5,6 +5,7 @@
 package dao;
 
 import context.DBContext;
+import entity.Account;
 import entity.Brand;
 import entity.Category;
 import entity.Product;
@@ -60,7 +61,7 @@ public class ProductDAO {
         }
         return productList;
     }
-    
+
     public ArrayList<Product> getLatestProducts() {
         ArrayList<Product> productList = new ArrayList<Product>();
         String query = "SELECT * FROM product WHERE enable = '1' ORDER BY product_id DESC LIMIT 8;";
@@ -306,7 +307,7 @@ public class ProductDAO {
             System.out.println(e.getMessage());
         }
     }
-    
+
     public void enableProduct(String id) {
         String query = "UPDATE product SET enable = 1 WHERE  product_id = '" + id + "'";
         try {
@@ -318,13 +319,13 @@ public class ProductDAO {
             System.out.println(e.getMessage());
         }
     }
-    
-    public void createProduct(Product p){
-         String query = "INSERT INTO product (product_name, product_image, product_price, cat_id, brand_id, product_description) "
-                 + "VALUES ('"+p.getName()+"','"+p.getImage()+"','"+p.getPrice()+"','"+p.getCategory()+"','"+p.getBrand()+"','"+p.getDescription()+"')";
-         String query2 = "SELECT product_id FROM product ORDER BY product_id DESC LIMIT 1;";
-         String newID="";
-         try {
+
+    public void createProduct(Product p) {
+        String query = "INSERT INTO product (product_name, product_image, product_price, cat_id, brand_id, product_description) "
+                + "VALUES ('" + p.getName() + "','" + p.getImage() + "','" + p.getPrice() + "','" + p.getCategory() + "','" + p.getBrand() + "','" + p.getDescription() + "')";
+        String query2 = "SELECT product_id FROM product ORDER BY product_id DESC LIMIT 1;";
+        String newID = "";
+        try {
             con = DBContext.getConnection();
             ps = con.prepareStatement(query);
             ps.executeUpdate();
@@ -334,57 +335,93 @@ public class ProductDAO {
             while (rs.next()) {
                 newID = rs.getString(1);
             }
-            
-         } catch (SQLException e) {
+
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
-         }
-         createSizeQuantity(newID);
-     }
-    
-    public void createSizeQuantity(String id){
+        }
+        createSizeQuantity(newID);
+    }
+
+    public void createSizeQuantity(String id) {
         con = DBContext.getConnection();
-        for (int i = 37; i<=43; i++){
-            String query = "INSERT INTO size_quantity (product_id, size) VALUES ('"+id+"','"+i+"')";
+        for (int i = 37; i <= 43; i++) {
+            String query = "INSERT INTO size_quantity (product_id, size) VALUES ('" + id + "','" + i + "')";
             try {
+                ps = con.prepareStatement(query);
+                ps.executeUpdate();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    public void createBrand(String name) {
+        String query = "INSERT INTO brand (brand_name) VALUES ('" + name + "');";
+        con = DBContext.getConnection();
+        try {
             ps = con.prepareStatement(query);
             ps.executeUpdate();
-         } catch (SQLException e) {
+            ps.close();
+            con.close();
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
-         }
+        }
+    }
+
+    public void updateProductInfo(String id, String name, double price, int cat, int brand, String des) {
+        String query = "UPDATE product SET product_name ='" + name + "', product_price='" + price + "', cat_id='" + cat + "', brand_id='" + brand + "', product_description='" + des + "' WHERE product_id ='" + id + "';";
+        con = DBContext.getConnection();
+        try {
+            ps = con.prepareStatement(query);
+            ps.executeUpdate();
+            ps.close();
+            con.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void upDateImage(String link, String id) {
+        String query = "UPDATE product SET product_image='" + link + "' WHERE product_id='" + id + "'";
+        con = DBContext.getConnection();
+        try {
+            ps = con.prepareStatement(query);
+            ps.executeUpdate();
+            ps.close();
+            con.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void updateQuantity(ArrayList<Integer> quantityList, String id) {
+        int[] size = {37, 38, 39, 40, 41, 42, 43};
+        for (int i = 0; i < size.length; i++) {
+            String query = "UPDATE size_quantity SET quantity='" + quantityList.get(i) + "' WHERE size='" + size[i] + "' AND product_id='" + id + "'";
+//            System.out.println(quantityList.get(i) + " " + size[i] + " " + id);
+            try {
+                con = DBContext.getConnection();
+                ps = con.prepareStatement(query);
+                ps.executeUpdate();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
     
-    public void createBrand (String name) {
-        String query = "INSERT INTO brand (brand_name) VALUES ('"+name+"');";
-        con = DBContext.getConnection();
-        try {
-            ps = con.prepareStatement(query);
-            ps.executeUpdate();
-            ps.close();
-            con.close();
-         } catch (SQLException e) {
-            System.out.println(e.getMessage());
-         }
-    }
     
-    public void updateProductInfo(String id, String name, double price, int cat, int brand, String des) {
-        String query = "UPDATE product SET product_name ='"+name+"', product_price='"+price+"', cat_id='"+cat+"', brand_id='"+brand+"', product_description='"+des+"' WHERE product_id ='"+id+"';";
-        con = DBContext.getConnection();
-        try {
-            ps = con.prepareStatement(query);
-            ps.executeUpdate();
-            ps.close();
-            con.close();
-         } catch (SQLException e) {
-            System.out.println(e.getMessage());
-         }
-    }
 
-    public static void main(String[] args) {
-        ProductDAO productDAO = new ProductDAO();
-        ArrayList<Product> products = productDAO.getProductByBrand(1);
-        Product p = new Product("hehe", "hahaha", 2000000, 1, 2, "des");
-        productDAO.createProduct(p);
-        
-    }
+//    public static void main(String[] args) {
+//        ProductDAO productDAO = new ProductDAO();
+//        ArrayList<Integer> test = new ArrayList<>();
+//        test.add(3);
+//        test.add(3);
+//        test.add(3);
+//        test.add(3);
+//        test.add(3);
+//        test.add(3);
+//        test.add(3);
+//        productDAO.updateQuantity(test, "SH1120");
+//
+//    }
 }

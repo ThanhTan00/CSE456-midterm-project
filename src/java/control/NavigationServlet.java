@@ -78,6 +78,10 @@ public class NavigationServlet extends HttpServlet {
             case "register":
                 target = "view/user/registerPage.jsp";
                 break;
+            case "profile": {
+                target = "view/user/userProfile.jsp";
+                break;
+            }
         }
         request.setAttribute("listBrand", lisB);
         request.setAttribute("activeTab", activeTab);

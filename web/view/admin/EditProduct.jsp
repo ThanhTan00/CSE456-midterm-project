@@ -128,7 +128,7 @@
 
                             <div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4">
                                 <h1 class="tm-block-title d-inline-block">Edit Product Image</h1> 
-                                <form action="ProductServlet?mode=changeImg" class="tm-edit-product-form" method="Post" enctype="multipart/form-data">
+                                <form action="manage?mode=updateImage" class="tm-edit-product-form" method="Post" enctype="multipart/form-data">
                                     <input
                                         id="id"
                                         name="id"
@@ -138,6 +138,7 @@
                                         readonly
                                         hidden
                                         />
+                                    <input type="text" name="name" value="${p.getName()}" readonly hidden/>
                                     <div class="tm-product-img-dummy mx-auto">
                                         <image class="tm-product-img-dummy mx-auto" src="${product.getImage()}">
                                     </div>
@@ -159,12 +160,13 @@
                                     </div>
                                 </form>
                                 <h1 class="tm-block-title d-inline-block mt-5">Edit Size - Quantity</h1>
-                                <form action="ProductServlet?mode=changeImg" class="tm-edit-product-form" method="Post">
+                                <form action="manage?mode=updateQuantity" class="tm-edit-product-form" method="post">
                                     <div class="row">
+                                        <input type="text" name="id" value="${p.getId()}" readonly hidden/>
                                         <c:forEach items="${listS}" var="s">
                                         <div class="col-md-4 form-group pr-0">
                                             <label>size ${s.getSize()}: </label>
-                                            <input style="width: 45%;" type="number" min="0" value="${s.getQuantity()}"/>
+                                            <input name="size${s.getSize()}" style="width: 45%;" type="number" min="0" value="${s.getQuantity()}" />
                                         </div>
                                         </c:forEach>
                                     </div>

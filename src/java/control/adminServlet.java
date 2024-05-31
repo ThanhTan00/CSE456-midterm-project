@@ -167,6 +167,45 @@ public class adminServlet extends HttpServlet {
                     target="manage?mode=productDetail&pid="+id;
                     break;
                 }
+                case "updateImage": {
+                    
+                    String id = request.getParameter("id");
+                    String name = request.getParameter("name");
+                    Part imgFilePart = request.getPart("image");
+                    String image = name.replaceAll(" ", "") + ".jpg";
+                    imgFilePart.write(ConfigInfo.getCtxRealPath() + "\\images\\product-images\\" + image);
+                    productDAO.upDateImage(image, id);
+                    target="manage?mode=productDetail&pid="+id;
+                    
+                    
+                    break;
+                }
+                case "updateQuantity": {
+                    
+                    String id = request.getParameter("id");
+                    int val37 = Integer.parseInt(request.getParameter("size37"));
+                    int val38 = Integer.parseInt(request.getParameter("size38"));
+                    int val39 = Integer.parseInt(request.getParameter("size39"));
+                    int val40 = Integer.parseInt(request.getParameter("size40"));
+                    int val41 = Integer.parseInt(request.getParameter("size41"));
+                    int val42 = Integer.parseInt(request.getParameter("size42"));
+                    int val43 = Integer.parseInt(request.getParameter("size43"));
+                    
+                    ArrayList<Integer> quantityList = new ArrayList<>();
+                    quantityList.add(val37);
+                    quantityList.add(val38);
+                    quantityList.add(val39);
+                    quantityList.add(val40);
+                    quantityList.add(val41);
+                    quantityList.add(val42);
+                    quantityList.add(val43);
+                    
+                    productDAO.updateQuantity(quantityList, id);
+                    target="manage?mode=productDetail&pid="+id;
+                    
+                    
+                    break;
+                }
             }
         }
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(target);

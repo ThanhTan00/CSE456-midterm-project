@@ -27,7 +27,7 @@
                 </c:if>
                 <c:if test="${account.getIsAdmin() == 0}">
                     <img class="p-2 m-r-3" style="border-radius: 50%;" src="images/blog-06.jpg" width="40px" height="100%" alt="alt"/>
-                <a href="" class="flex-c-m trans-04 p-r-25">
+                <a href="navigate?target=profile" class="flex-c-m trans-04 p-r-25">
                     ${account.getName()}
                 </a>
 

@@ -65,10 +65,13 @@
                     <div class="col-12 col-lg-9 col-xl-7">
                         <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
                             <div class="card-body p-4 p-md-5">
+                                <p class="${message==null ? " ": "alert-danger alert" }">${message}</p>
+
                                 <img style="width: 30px" class="img-fluid" src="images/icons/favicon.png" alt="IMG-LOGO">
                                 <strong><span style="color: #747474">TAN'</span><span style="color: #444444">S</span><span style="color: black">HOES</span></strong>
                                 <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Register your own account</h3>
-                                <form>
+                                <form action="account?mode=signup" method="post">
+
 
                                     <div class="row">
                                         <div class="col-md mb-4">
@@ -112,8 +115,8 @@
                                         <div class="col-md-6 mb-4 pb-2">
 
                                             <div data-mdb-input-init class="form-outline">
-                                                <input type="password" id="conifrmPass" name="conifrmPass" class="form-control form-control-lg" required/>
-                                                <label class="form-label" for="conifrmPass">Confirm Password</label>
+                                                <input type="password" id="confirmPass" name="confirmPass" class="form-control form-control-lg" required/>
+                                                <label class="form-label" for="confirmPass">Confirm Password</label>
                                             </div>
 
                                         </div>
