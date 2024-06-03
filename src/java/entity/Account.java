@@ -14,6 +14,7 @@ public abstract class Account {
     private String password;
     private String name;
     private int isAdmin;
+    private String avatar;
 
     public Account(int id, String email) {
         this.id = id;
@@ -22,12 +23,14 @@ public abstract class Account {
     
     
 
-    public Account(int id, String email, String password, String name, int isAdmin) {
+    public Account(int id, String email, String password, String name, String avatar, int isAdmin) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.name = name;
+        this.avatar = avatar;
         this.isAdmin = isAdmin;
+        
     }
 
     public int getId() {
@@ -68,6 +71,14 @@ public abstract class Account {
 
     public void setIsAdmin(int isAdmin) {
         this.isAdmin = isAdmin;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
     
     

@@ -16,11 +16,10 @@ public class Profile extends Account{
     private String avatar;
     
     public Profile(String gender, String phone, String address, String avatar, int id, String email, String password, String name, int isAdmin) {
-        super(id, email, password, name, isAdmin);
+        super(id, email, password, name, avatar, isAdmin);
         this.gender = gender;
         this.phone = phone;
         this.address = address;
-        this.avatar = avatar;
     }
 
     public String getGender() {
@@ -47,13 +46,11 @@ public class Profile extends Account{
         this.address = address;
     }
 
-    public String getAvatar() {
-        return avatar;
+    @Override
+    public String toString() {
+        return "Profile{" + "gender=" + gender + ", phone=" + phone + ", address=" + address + ", avatar=" + avatar + '}';
     }
-
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
-    }
+    
     
     
 }

@@ -5,10 +5,13 @@
 package control;
 
 import config.ConfigInfo;
+import dao.AccountDAO;
 import dao.ProductDAO;
+import entity.Account;
 import entity.Brand;
 import entity.Category;
 import entity.Product;
+import entity.Profile;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -18,6 +21,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -40,6 +44,8 @@ public class NavigationServlet extends HttpServlet {
 
         String target = "start";
         ProductDAO productDAO = new ProductDAO();
+        AccountDAO accountDAO = new AccountDAO();
+        HttpSession session = request.getSession();
 
         int activeTab = 0;
         ArrayList<Brand> lisB = productDAO.getAllBrand();
@@ -47,22 +53,26 @@ public class NavigationServlet extends HttpServlet {
         String des = request.getParameter("target");
 
         switch (des) {
-            case "blog":
+            case "blog": {
                 target = "view/user/blog.jsp";
                 activeTab = 2;
                 break;
-            case "about":
+            }
+            case "about": {
                 target = "view/user/about.jsp";
                 activeTab = 3;
                 break;
-            case "contact":
+            }
+            case "contact": {
                 target = "view/user/contact.jsp";
                 activeTab = 4;
                 break;
-            case "cart":
+            }
+            case "cart": {
                 target = "view/user/cartPage.jsp";
                 break;
-            case "shop":
+            }
+            case "shop": {
                 activeTab = 1;
                 target = "view/user/product.jsp";
                 ArrayList<Product> listP = productDAO.getAllProduct();
@@ -72,16 +82,27 @@ public class NavigationServlet extends HttpServlet {
                 request.setAttribute("listCategory", listC);
                 request.setAttribute("page_title", "all branches");
                 break;
-            case "login":
+            }
+            case "login": {
                 target = "view/user/loginPage.jsp";
                 break;
-            case "register":
+            }
+            case "register": {
                 target = "view/user/registerPage.jsp";
                 break;
-            case "profile": {
-                target = "view/user/userProfile.jsp";
-                break;
             }
+            case "profile": {
+                if (session.getAttribute("account") == null) {
+                    target = "start";
+                } else {
+                    Account account = (Account) session.getAttribute("account");
+                    Profile profile = accountDAO.getProfile(account.getId());
+                    request.setAttribute("profile", profile);
+                    target = "view/user/userProfile.jsp";
+                }
+                 break;
+            }
+
         }
         request.setAttribute("listBrand", lisB);
         request.setAttribute("activeTab", activeTab);
