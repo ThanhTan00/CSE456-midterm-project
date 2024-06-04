@@ -4,14 +4,18 @@
  */
 package control;
 
+import dao.OrderDAO;
 import dao.ProductDAO;
+import entity.Account;
 import entity.Brand;
 import entity.Cart;
 import entity.Category;
 import entity.Item;
+import entity.Order;
 import entity.Product;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -45,6 +49,7 @@ public class cartServlet extends HttpServlet {
         String mode = request.getParameter("mode");
 
         ProductDAO productDAO = new ProductDAO();
+        OrderDAO orderDAO = new OrderDAO();
 
         ArrayList<Brand> listBrand = productDAO.getAllBrand();
         ArrayList<Category> listCategory = productDAO.getAllCategoy();
@@ -97,6 +102,17 @@ public class cartServlet extends HttpServlet {
                 Cart cart = (Cart) session.getAttribute("cart");
                 cart.getItems().clear();
                 break;
+            }
+            case "checkout": {
+                Cart cart = (Cart) session.getAttribute("cart");
+                Account account = (Account) session.getAttribute("account");
+                LocalDate date = java.time.LocalDate.now();
+                int newId = orderDAO.createOrder(account.getId(), cart.getTotalMoney(), date);
+                for (Item i : cart.getItems()){
+                    orderDAO.createOrderdetail(newId, i.getProduct().getId(), i.getSize(), i.getProduct().getPrice(), i.getQuantity(), i.getItemPrice());
+                }
+                session.removeAttribute("cart");
+                target = "navigate?target=cart";
             }
         }
 

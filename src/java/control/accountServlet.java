@@ -137,6 +137,16 @@ public class accountServlet extends HttpServlet {
                 session.setAttribute("account", afterChange);
 
             }
+            case "changePassword": {
+                target = "navigate?target=profile";
+                Account account = (Account) session.getAttribute("account");
+                int id = Integer.parseInt(request.getParameter("id"));
+                String password = request.getParameter("newPass");
+                accountDAO.changePassword(id, password);
+                Account afterChange = accountDAO.getAccount(account.getEmail(), password);
+                session.setAttribute("account", afterChange);
+                
+            }
 
         }
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(target);

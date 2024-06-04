@@ -56,6 +56,11 @@
             .custommodal {
                 z-index: 9000;
             }
+
+            .rq{
+                color: red;
+            }
+
         </style>
     </head>
     <body class="animsition m-0">
@@ -163,14 +168,14 @@
                                     </div>
                                 </div>
                                 <div class="row justify-content-around">
-                                    
+
                                     <div class="text-secondary">
                                         <!--                                            <input type="button" class="btn btn-primary px-4" value="Save Changes">-->
                                         <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editProfileModal">CHANGE MY PROFILE</button>
                                     </div>
                                     <div class="text-secondary">
                                         <!--                                            <input type="button" class="btn btn-primary px-4" value="Save Changes">-->
-                                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModal">CHANGE MY PASSWORD</button>
+                                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editPasswordModal">CHANGE MY PASSWORD</button>
                                     </div>
                                 </div>
                             </div>
@@ -208,6 +213,45 @@
                 </div>
             </div>
         </div>
+
+        <div class="modal fade custommodal" id="editPasswordModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form id="changePassword-form" action="account?mode=changePassword" method="post">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Change Password</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="id" value="${profile.getId()}" readonly hidden>
+                                <label for="currenPass" class="col-form-label">Current Password:</label>
+                                <input type="password" class="form-control" name="currentPass" id="currenPass">
+                                <div id="err_currentPass"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="newPass" class="col-form-label">New Password:</label>
+                                <input type="password" class="form-control" name="newPass" id="newPass">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="confirmPass" class="col-form-label">Confirm New Password:</label>
+                                <input type="password" rows="3" class="form-control" name="confirmPass" id="confirmPass">
+                                <div id="err_newPass"></div>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <a style="color: white" onclick="handleChangePassword()" type="button" class="btn btn-primary pointer">Save</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
         <div class="modal fade custommodal" id="editProfileModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -266,10 +310,30 @@
         </div>
         <!-- Footer -->
         <jsp:include page="userIncludes/footer.jsp"></jsp:include>
-        <!-- End Footer -->
+            <!-- End Footer -->
 
-        <!--============================================== Script =================================================-->
-        <script src="asset/vendor/jquery/jquery-3.2.1.min.js"></script>
+            <!--============================================== Script =================================================-->
+            <script src="asset/vendor/jquery/jquery-3.2.1.min.js"></script>
+            <script>
+                                function handleChangePassword() {
+                                    let currentPass = document.getElementById("currenPass").value;
+                                    let newPass = document.getElementById("newPass").value;
+                                    let confirmPass = document.getElementById("confirmPass").value;
+                                    if (currentPass.localeCompare("${account.getPassword()}") != 0 ) {
+                                        error = "Wrong current passord!";
+                                        document.getElementById("err_currentPass").innerHTML = "<span class='rq'>" + error + "</span>";
+                                        return;
+                                    } 
+                                    if (newPass.localeCompare(confirmPass) === 1){
+                                        error = "Your confirm password is not matched!";
+                                        document.getElementById("err_newPass").innerHTML = "<span class='rq'>" + error + "</span>";
+                                        return;
+                                    }
+                                    my_form = document.getElementById("changePassword-form");
+                                    my_form.submit();
+
+                                }
+        </script>
 
         <script src="asset/vendor/animsition/js/animsition.min.js"></script>
 
@@ -278,12 +342,12 @@
 
         <script src="asset/vendor/select2/select2.min.js"></script>
         <script>
-            $(".js-select2").each(function () {
-                $(this).select2({
-                    minimumResultsForSearch: 20,
-                    dropdownParent: $(this).next('.dropDownSelect2')
-                });
-            })
+                                $(".js-select2").each(function () {
+                                    $(this).select2({
+                                        minimumResultsForSearch: 20,
+                                        dropdownParent: $(this).next('.dropDownSelect2')
+                                    });
+                                })
         </script>
 
         <script src="asset/vendor/daterangepicker/moment.min.js"></script>
@@ -294,78 +358,78 @@
 
         <script src="asset/vendor/parallax100/parallax100.js"></script>
         <script>
-            $('.parallax100').parallax100();
+                                $('.parallax100').parallax100();
         </script>
 
         <script src="asset/vendor/MagnificPopup/jquery.magnific-popup.min.js"></script>
         <script>
-            $('.gallery-lb').each(function () { // the containers for all your galleries
-                $(this).magnificPopup({
-                    delegate: 'a', // the selector for gallery item
-                    type: 'image',
-                    gallery: {
-                        enabled: true
-                    },
-                    mainClass: 'mfp-fade'
-                });
-            });
+                                $('.gallery-lb').each(function () { // the containers for all your galleries
+                                    $(this).magnificPopup({
+                                        delegate: 'a', // the selector for gallery item
+                                        type: 'image',
+                                        gallery: {
+                                            enabled: true
+                                        },
+                                        mainClass: 'mfp-fade'
+                                    });
+                                });
         </script>
 
         <script src="asset/vendor/isotope/isotope.pkgd.min.js"></script>
 
         <script src="asset/vendor/sweetalert/sweetalert.min.js"></script>
         <script>
-            $('.js-addwish-b2').on('click', function (e) {
-                e.preventDefault();
-            });
+                                $('.js-addwish-b2').on('click', function (e) {
+                                    e.preventDefault();
+                                });
 
-            $('.js-addwish-b2').each(function () {
-                var nameProduct = $(this).parent().parent().find('.js-name-b2').html();
-                $(this).on('click', function () {
-                    swal(nameProduct, "is added to wishlist !", "success");
+                                $('.js-addwish-b2').each(function () {
+                                    var nameProduct = $(this).parent().parent().find('.js-name-b2').html();
+                                    $(this).on('click', function () {
+                                        swal(nameProduct, "is added to wishlist !", "success");
 
-                    $(this).addClass('js-addedwish-b2');
-                    $(this).off('click');
-                });
-            });
+                                        $(this).addClass('js-addedwish-b2');
+                                        $(this).off('click');
+                                    });
+                                });
 
-            $('.js-addwish-detail').each(function () {
-                var nameProduct = $(this).parent().parent().parent().find('.js-name-detail').html();
+                                $('.js-addwish-detail').each(function () {
+                                    var nameProduct = $(this).parent().parent().parent().find('.js-name-detail').html();
 
-                $(this).on('click', function () {
-                    swal(nameProduct, "is added to wishlist !", "success");
+                                    $(this).on('click', function () {
+                                        swal(nameProduct, "is added to wishlist !", "success");
 
-                    $(this).addClass('js-addedwish-detail');
-                    $(this).off('click');
-                });
-            });
+                                        $(this).addClass('js-addedwish-detail');
+                                        $(this).off('click');
+                                    });
+                                });
 
-            /*---------------------------------------------*/
+                                /*---------------------------------------------*/
 
-            $('.js-addcart-detail').each(function () {
-                var nameProduct = $(this).parent().parent().parent().parent().find('.js-name-detail').html();
-                $(this).on('click', function () {
-                    swal(nameProduct, "is added to cart !", "success");
-                });
-            });
+                                $('.js-addcart-detail').each(function () {
+                                    var nameProduct = $(this).parent().parent().parent().parent().find('.js-name-detail').html();
+                                    $(this).on('click', function () {
+                                        swal(nameProduct, "is added to cart !", "success");
+                                    });
+                                });
 
         </script>
 
         <script src="asset/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
         <script>
-            $('.js-pscroll').each(function () {
-                $(this).css('position', 'relative');
-                $(this).css('overflow', 'hidden');
-                var ps = new PerfectScrollbar(this, {
-                    wheelSpeed: 1,
-                    scrollingThreshold: 1000,
-                    wheelPropagation: false,
-                });
+                                $('.js-pscroll').each(function () {
+                                    $(this).css('position', 'relative');
+                                    $(this).css('overflow', 'hidden');
+                                    var ps = new PerfectScrollbar(this, {
+                                        wheelSpeed: 1,
+                                        scrollingThreshold: 1000,
+                                        wheelPropagation: false,
+                                    });
 
-                $(window).on('resize', function () {
-                    ps.update();
-                })
-            });
+                                    $(window).on('resize', function () {
+                                        ps.update();
+                                    })
+                                });
         </script>
         <script src="asset/js/main.js"></script>
     </body>

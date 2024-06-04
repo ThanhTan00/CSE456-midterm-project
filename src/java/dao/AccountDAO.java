@@ -142,6 +142,20 @@ public class AccountDAO {
         }
 
     }
+    
+    public void changePassword (int id, String password) {
+        String query = "UPDATE account SET acc_password='"+password+"' WHERE acc_id='"+id+"';";
+        con = DBContext.getConnection();
+        try {
+            ps = con.prepareStatement(query);
+            ps.executeUpdate();
+            ps.close();
+            con.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
     public static void main(String[] args) {
         AccountDAO accountDAO = new AccountDAO();
         Profile p = accountDAO.getProfile(2);
