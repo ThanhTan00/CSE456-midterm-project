@@ -409,6 +409,19 @@ public class ProductDAO {
         }
     }
     
+    public void updatProductSizeQuantity(int quantity, int size, String id){
+        String query = "UPDATE size_quantity SET quantity = quantity - " + quantity + " WHERE size = '" + size + "' AND product_id = '" + id +"';";
+        con = DBContext.getConnection();
+        try {
+            ps = con.prepareStatement(query);
+            ps.executeUpdate();
+            ps.close();
+            con.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
     
 
 //    public static void main(String[] args) {

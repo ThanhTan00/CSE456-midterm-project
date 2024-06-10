@@ -97,6 +97,7 @@ public class accountServlet extends HttpServlet {
                     String phone = request.getParameter("phone");
                     String address = request.getParameter("address");
                     String gender = request.getParameter("gender");
+                    String image = "default-avatar.jpg";
 
                     Account account = accountDAO.getAccountByEmail(email);
 
@@ -104,7 +105,7 @@ public class accountServlet extends HttpServlet {
                         message = "Your Email has been used. Please try with another email!";
                         request.setAttribute("message", message);
                     } else {
-                        accountDAO.createNewAccount(email, password, name, gender, phone, address);
+                        accountDAO.createNewAccount(email, password, name, gender, phone, address, image);
                         message = "Create new account successfully! Please sign in to continue shopping!";
                         request.setAttribute("error", message);
                         target = "navigate?target=login";
@@ -119,9 +120,9 @@ public class accountServlet extends HttpServlet {
                 String gender = request.getParameter("gender");
                 String phone = request.getParameter("phone");
                 String address = request.getParameter("address");
-
                 accountDAO.updateUserProfile(id, name, gender, phone, address);
                 target = "navigate?target=profile";
+                break;
             }
             case "updateAvatar": {
                 target = "navigate?target=profile";
@@ -129,13 +130,10 @@ public class accountServlet extends HttpServlet {
                 Part imgFilePart = request.getPart("newAvatar");
                 String image = account.getId() + ".jpg";
                 imgFilePart.write(ConfigInfo.getCtxRealPath() + "\\images\\user-avatar\\" + image);
-
-                if (account.getAvatar().equalsIgnoreCase("default-avatar.jpg")) {
-                    accountDAO.updateAvatar(account.getId(), image);
-                }
+                accountDAO.updateAvatar(account.getId(), image);
                 Account afterChange = accountDAO.getAccount(account.getEmail(), account.getPassword());
                 session.setAttribute("account", afterChange);
-
+                break;
             }
             case "changePassword": {
                 target = "navigate?target=profile";
@@ -145,7 +143,7 @@ public class accountServlet extends HttpServlet {
                 accountDAO.changePassword(id, password);
                 Account afterChange = accountDAO.getAccount(account.getEmail(), password);
                 session.setAttribute("account", afterChange);
-                
+                break;
             }
 
         }

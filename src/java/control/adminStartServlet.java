@@ -4,7 +4,6 @@
  */
 package control;
 
-import com.mysql.cj.Session;
 import dao.ProductDAO;
 import entity.Account;
 import entity.Brand;

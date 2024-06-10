@@ -110,6 +110,7 @@ public class cartServlet extends HttpServlet {
                 int newId = orderDAO.createOrder(account.getId(), cart.getTotalMoney(), date);
                 for (Item i : cart.getItems()){
                     orderDAO.createOrderdetail(newId, i.getProduct().getId(), i.getSize(), i.getProduct().getPrice(), i.getQuantity(), i.getItemPrice());
+                    productDAO.updatProductSizeQuantity(i.getQuantity(), i.getSize(), i.getProduct().getId());
                 }
                 session.removeAttribute("cart");
                 target = "navigate?target=cart";

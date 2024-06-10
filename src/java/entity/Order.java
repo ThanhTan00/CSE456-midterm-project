@@ -4,7 +4,9 @@
  */
 package entity;
 
+import java.text.NumberFormat;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  *
@@ -63,6 +65,12 @@ public class Order {
 
     public void setOrderStatus(String orderStatus) {
         this.orderStatus = orderStatus;
+    }
+    public String getFormatedPrice() {
+        Locale locale = new Locale("vi", "VN");
+        NumberFormat numberFormat = NumberFormat.getCurrencyInstance(locale);
+        String stringPrice = numberFormat.format(this.orderPrice);
+        return stringPrice;
     }
 
     @Override

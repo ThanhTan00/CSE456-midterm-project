@@ -6,12 +6,14 @@ package control;
 
 import config.ConfigInfo;
 import dao.AccountDAO;
+import dao.OrderDAO;
 import dao.ProductDAO;
 import entity.Account;
 import entity.Brand;
 import entity.Category;
 import entity.Product;
 import entity.Profile;
+import entity.Order;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -45,6 +47,7 @@ public class NavigationServlet extends HttpServlet {
         String target = "start";
         ProductDAO productDAO = new ProductDAO();
         AccountDAO accountDAO = new AccountDAO();
+        OrderDAO orderDAO = new OrderDAO();
         HttpSession session = request.getSession();
 
         int activeTab = 0;
@@ -97,7 +100,9 @@ public class NavigationServlet extends HttpServlet {
                 } else {
                     Account account = (Account) session.getAttribute("account");
                     Profile profile = accountDAO.getProfile(account.getId());
+                    ArrayList<Order> listOders = orderDAO.getAllOrdersByCustomerId(account.getId());
                     request.setAttribute("profile", profile);
+                    request.setAttribute("listO", listOders);
                     target = "view/user/userProfile.jsp";
                 }
                  break;

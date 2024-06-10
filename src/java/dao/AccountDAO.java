@@ -103,8 +103,8 @@ public class AccountDAO {
          return null;
     }
     
-    public void createNewAccount(String email, String pass, String name, String gender, String phone, String address) {
-        String query = "INSERT INTO account (acc_email, acc_password, acc_name, acc_gender, acc_phone, acc_address) VALUES ('"+email+"','"+pass+"','"+name+"','"+gender+"','"+phone+"','"+address+"');";
+   public void createNewAccount(String email, String pass, String name, String gender, String phone, String address, String image) {
+        String query = "INSERT INTO account (acc_email, acc_password, acc_name, acc_gender, acc_phone, acc_address, acc_avt) VALUES ('"+email+"','"+pass+"','"+name+"','"+gender+"','"+phone+"','"+address+"', '"+image+"');";
         con = DBContext.getConnection();
         try {
             ps = con.prepareStatement(query);

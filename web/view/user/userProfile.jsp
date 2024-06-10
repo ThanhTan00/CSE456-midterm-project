@@ -184,27 +184,32 @@
                             <div class="col-sm-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h5 class="d-flex align-items-center mb-3">Project Status</h5>
-                                        <p>Web Design</p>
-                                        <div class="progress mb-3" style="height: 5px">
-                                            <div class="progress-bar bg-primary" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-                                        <p>Website Markup</p>
-                                        <div class="progress mb-3" style="height: 5px">
-                                            <div class="progress-bar bg-danger" role="progressbar" style="width: 72%" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-                                        <p>One Page</p>
-                                        <div class="progress mb-3" style="height: 5px">
-                                            <div class="progress-bar bg-success" role="progressbar" style="width: 89%" aria-valuenow="89" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-                                        <p>Mobile Template</p>
-                                        <div class="progress mb-3" style="height: 5px">
-                                            <div class="progress-bar bg-warning" role="progressbar" style="width: 55%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-                                        <p>Backend API</p>
-                                        <div class="progress" style="height: 5px">
-                                            <div class="progress-bar bg-info" role="progressbar" style="width: 66%" aria-valuenow="66" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
+                                        <h5 class="d-flex align-items-center mb-3">Order History</h5>
+                                        <table class="table table-info table-striped table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">ID</th>
+                                                    <th scope="col">Order Date</th>
+                                                    <th scope="col">Total bill</th>
+                                                    <th scope="col">Current Status</th>
+                                                    <th scope="col">View Details</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <c:set var="i" value="1"/>
+                                                <c:forEach items="${listO}" var="o">
+                                                    <tr>
+                                                        <th scope="row">${i}</th>
+                                                        <td>${o.getOrderDate()}</td>
+                                                        <td>${o.getFormatedPrice()}</td>
+                                                        <td>${o.getOrderStatus()}</td>
+                                                        <td><button type="button" class="btn btn-dark">Details</button></td>
+                                                    </tr>
+                                                    <c:set var="i" value="${i+1}"/>
+                                                </c:forEach>
+                                            </tbody>
+                                        </table>
+                                     
                                     </div>
                                 </div>
                             </div>
@@ -319,12 +324,12 @@
                                     let currentPass = document.getElementById("currenPass").value;
                                     let newPass = document.getElementById("newPass").value;
                                     let confirmPass = document.getElementById("confirmPass").value;
-                                    if (currentPass.localeCompare("${account.getPassword()}") != 0 ) {
+                                    if (currentPass.localeCompare("${account.getPassword()}") != 0) {
                                         error = "Wrong current passord!";
                                         document.getElementById("err_currentPass").innerHTML = "<span class='rq'>" + error + "</span>";
                                         return;
-                                    } 
-                                    if (newPass.localeCompare(confirmPass) === 1){
+                                    }
+                                    if (newPass.localeCompare(confirmPass) === 1) {
                                         error = "Your confirm password is not matched!";
                                         document.getElementById("err_newPass").innerHTML = "<span class='rq'>" + error + "</span>";
                                         return;

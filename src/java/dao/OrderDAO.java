@@ -11,6 +11,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import entity.Order;
+
 
 /**
  *
@@ -44,7 +47,7 @@ public class OrderDAO {
         return newID;
     }
     
-    public void createOrderdetail(int orderId, String productId,int size, double productPrice, int quantity, double itemPrice) {
+    public void createOrderdetail(int orderId, String productId ,int size, double productPrice, int quantity, double itemPrice) {
         String query = "INSERT INTO order_details (order_id, product_id, product_size, product_price, quantity, item_price) "
                 + "VALUES ('"+orderId+"','"+productId+"','"+size+"','"+productPrice+"','"+quantity+"','"+itemPrice+"')";
         con = DBContext.getConnection();
@@ -56,6 +59,33 @@ public class OrderDAO {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+    }
+    
+    public ArrayList<Order> getAllOrdersByCustomerId (int id) {
+        ArrayList<Order> listOrder = new ArrayList<Order>();
+        String query = "SELECT * FROM order_tb WHERE customer_id = '"+id+"' ORDER BY order_date desc;";
+
+        try {
+            con = DBContext.getConnection();
+            ps = con.prepareStatement(query);
+            rs = ps.executeQuery(query);
+            while (rs.next()) {
+                Order order = new Order(
+                        rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getDouble(3),
+                        rs.getDate(4),
+                        rs.getString(5)
+                );
+                listOrder.add(order);
+            }
+            ps.close();
+            con.close();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        
+        return listOrder;
     }
     public static void main(String[] args) {
         OrderDAO o = new OrderDAO();
