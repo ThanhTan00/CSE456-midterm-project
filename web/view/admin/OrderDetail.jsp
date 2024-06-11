@@ -94,9 +94,9 @@
                                           class="form-control validate"
                                           id="address"
                                           rows="5"
-                                          name="${profile.getAddress()}"
+                                          name="address"
                                           readonly
-                                        >Binh Duong</textarea>
+                                        >${profile.getAddress()}</textarea>
                                       </div>
                                   </div>
                                </div>

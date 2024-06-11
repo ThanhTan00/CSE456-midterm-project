@@ -281,6 +281,25 @@ public class adminServlet extends HttpServlet {
                     
                     break;
                 }
+                
+                case "customerAccount": {
+                    active = 3;
+                    ArrayList<Profile> listProfile = accountDAO.getAllUserProfiles();
+                    request.setAttribute("listUser", listProfile);
+                    request.setAttribute("active", active);
+                    target="view/admin/ManagerAccount.jsp";
+                    break;
+                }
+                case "profile": {
+                    active = 3;
+                    int id = Integer.parseInt(request.getParameter("id"));
+                    Profile profile = accountDAO.getProfile(id);
+                    ArrayList<Order> listOders = orderDAO.getAllOrdersByCustomerId(id);
+                    request.setAttribute("orederList", listOders);
+                    request.setAttribute("profile", profile);
+                    request.setAttribute("active", active);
+                    target="view/admin/Account.jsp";
+                }
             }
         }
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(target);

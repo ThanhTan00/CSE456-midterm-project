@@ -48,8 +48,8 @@
                 <span> Manage Account <i class="fas fa-angle-down"></i> </span>
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="AdminServlet?mode=staffAccount">Staff Account</a>
-                <a class="dropdown-item" href="AdminServlet?mode=customerAccount">Customer Account</a>
+                <a class="dropdown-item" href="manager?mode=staffAccount">Staff Account</a>
+                <a class="dropdown-item" href="manage?mode=customerAccount">Customer Account</a>
               </div>
             </li>
           </ul>

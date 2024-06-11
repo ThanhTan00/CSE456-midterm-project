@@ -53,7 +53,7 @@ public class OrderDAO {
     
     public void createOrderdetail(int orderId, String productId ,int size, double productPrice, int quantity, double itemPrice) {
         String query = "INSERT INTO order_details (order_id, product_id, product_size, product_price, quantity, item_price) "
-                + "VALUES ('"+orderId+"','"+productId+"','"+size+"','"+productPrice+"','"+quantity+"','"+itemPrice+"')";
+                + "VALUES ('"+orderId+"','"+productId+"','"+size+"','"+productPrice+"','"+quantity+"','"+itemPrice+"');";
         con = DBContext.getConnection();
         try {
             ps = con.prepareStatement(query);

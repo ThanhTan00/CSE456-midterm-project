@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
@@ -74,6 +75,33 @@ public class AccountDAO {
             System.out.println(ex.getMessage());
         }
          return null;
+    }
+    public ArrayList<Profile> getAllUserProfiles () {
+        String query = "SELECT * FROM account WHERE acc_isAdmin = 0 AND acc_enable = 1";
+        ArrayList<Profile> listProfile = new ArrayList<Profile>();
+        try {
+            con = DBContext.getConnection();
+            ps = con.prepareStatement(query);
+            rs = ps.executeQuery(query);
+            while (rs.next()) {
+                Profile profile = new Profile(
+                        rs.getString(5), 
+                        rs.getString(6), 
+                        rs.getString(7), 
+                        "images\\user-avatar\\"+rs.getString(8), 
+                        rs.getInt(1), 
+                        rs.getString(2), 
+                        rs.getString(3), 
+                        rs.getString(4), 
+                        rs.getInt(9));
+                listProfile.add(profile);
+            }
+            ps.close();
+            con.close();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+         return listProfile;
     }
     
     public Profile getProfile (int id) {
