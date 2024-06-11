@@ -31,7 +31,7 @@
               </a>
             </li>
             <li ${active==1? "class='nav-item active'":"class='nav-item'"}>
-              <a class="nav-link" href="AdminServlet?mode=orderAll">
+              <a class="nav-link" href="manage?mode=orderManage">
                 <i class="far fa-file-alt"></i> Manage Order
               </a>
             </li>

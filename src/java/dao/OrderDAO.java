@@ -5,6 +5,8 @@
 package dao;
 
 import context.DBContext;
+import entity.Cart;
+import entity.Item;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,6 +15,7 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import entity.Order;
+import entity.Product;
 
 
 /**
@@ -23,6 +26,7 @@ public class OrderDAO {
     Connection con = null;
     PreparedStatement ps = null;
     ResultSet rs = null;
+    ProductDAO productDAO = new ProductDAO();
 
     public OrderDAO() {
     }
@@ -61,6 +65,33 @@ public class OrderDAO {
         }
     }
     
+    public ArrayList<Order> getAllOrders() {
+        ArrayList<Order> listOrder = new ArrayList<Order>();
+        String query = "SELECT * FROM order_tb;";
+
+        try {
+            con = DBContext.getConnection();
+            ps = con.prepareStatement(query);
+            rs = ps.executeQuery(query);
+            while (rs.next()) {
+                Order order = new Order(
+                        rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getDouble(3),
+                        rs.getDate(4),
+                        rs.getString(5)
+                );
+                listOrder.add(order);
+            }
+            ps.close();
+            con.close();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        
+        return listOrder;
+    }
+    
     public ArrayList<Order> getAllOrdersByCustomerId (int id) {
         ArrayList<Order> listOrder = new ArrayList<Order>();
         String query = "SELECT * FROM order_tb WHERE customer_id = '"+id+"' ORDER BY order_date desc;";
@@ -86,6 +117,68 @@ public class OrderDAO {
         }
         
         return listOrder;
+    }
+    
+    public Order getOrderByOrderId (int id) {
+        String query = "SELECT * FROM order_tb WHERE order_id = '"+id+"';";
+        Order order = null;
+        try {
+            con = DBContext.getConnection();
+            ps = con.prepareStatement(query);
+            rs = ps.executeQuery(query);
+            while (rs.next()) {
+                order = new Order(
+                        rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getDouble(3),
+                        rs.getDate(4),
+                        rs.getString(5)
+                );
+            }
+            ps.close();
+            con.close();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return order;
+    }
+    
+    public void updateOrderStatus(int id, String status) {
+        String query = "UPDATE order_tb SET order_status ='"+status+"' WHERE order_id = '"+id+"';";
+        con = DBContext.getConnection();
+        try {
+            ps = con.prepareStatement(query);
+            ps.executeUpdate();
+            ps.close();
+            con.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    
+    }
+    
+    public Cart getOrderDetailByOrderId(int id){
+        Cart cart = new Cart();
+        //Product p = productDAO.getProductById("");
+        String query = "SELECT product_id, product_size, quantity FROM order_details WHERE order_id = '"+id+"';";
+        try {
+            con = DBContext.getConnection();
+            ps = con.prepareStatement(query);
+            rs = ps.executeQuery(query);
+            while (rs.next()) {
+                Item item = new Item(
+                        productDAO.getProductById(rs.getString(1)),
+                        rs.getInt(2),
+                        rs.getInt(3)
+                );
+                cart.addItem(item);
+            }
+            ps.close();
+            con.close();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return cart;
     }
     public static void main(String[] args) {
         OrderDAO o = new OrderDAO();

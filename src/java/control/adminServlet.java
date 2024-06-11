@@ -5,11 +5,16 @@
 package control;
 
 import config.ConfigInfo;
+import dao.AccountDAO;
+import dao.OrderDAO;
 import dao.ProductDAO;
 import entity.Account;
 import entity.Brand;
+import entity.Cart;
 import entity.Category;
+import entity.Order;
 import entity.Product;
+import entity.Profile;
 import entity.SizeQuantity;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -51,12 +56,14 @@ public class adminServlet extends HttpServlet {
 
         HttpSession session = request.getSession();
         Account account = (Account) session.getAttribute("account");
+        ProductDAO productDAO = new ProductDAO();
+        AccountDAO accountDAO = new AccountDAO();
+        OrderDAO orderDAO = new OrderDAO();
 
         if (account == null || account.getIsAdmin() == 0) {
             target = "start";
         } else {
             String mode = request.getParameter("mode");
-            ProductDAO productDAO = new ProductDAO();
             int nav;
             int active;
             switch (mode) {
@@ -74,6 +81,74 @@ public class adminServlet extends HttpServlet {
                     request.setAttribute("listC", listC);
                     request.setAttribute("nav", nav);
                     request.setAttribute("active", active);
+                    break;
+                }
+                case "orderManage": {
+                    nav = 1;
+                    active = 1;
+                    target = "view/admin/ManagerOrder.jsp";
+                    ArrayList<Order> listOrder = orderDAO.getAllOrders();
+                    request.setAttribute("listO", listOrder);
+                    request.setAttribute("nav", nav);
+                    request.setAttribute("active", active);
+                    break;
+                }
+                case "filterOrder":
+                {
+                    nav = 2;
+                    active = 1;
+                    String[] filterItems = {"all", "waiting", "confirmed", "delivering", "completed"};
+                    target = "view/admin/ManagerOrder.jsp";
+                    ArrayList<Order> allOrders = orderDAO.getAllOrders();
+                    ArrayList<Order> filteredOrder = new ArrayList<Order>();
+                    
+                    String items = request.getParameter("items");
+                    for (int i = 0; i<filterItems.length; i++){
+                        if (items.equalsIgnoreCase(filterItems[i])){
+                            nav = i+1;
+                            break;
+                        }
+                    }
+                    for (Order o : allOrders) {
+                        if (o.getOrderStatus().equalsIgnoreCase(items)){
+                            filteredOrder.add(o);
+                        }
+                    }
+                    
+                    request.setAttribute("listO", filteredOrder);
+                    request.setAttribute("nav", nav);
+                    request.setAttribute("active", active);
+                    break;
+                }
+                case "updateOrderStatus": {
+                    active = 1;
+                    String[] filterItems = {"all", "waiting", "confirmed", "delivering", "completed"};
+                    int orderId = Integer.parseInt(request.getParameter("id"));
+                    String status = request.getParameter("status");
+                    String updateStatus = "";
+                    for (int i = 0; i<filterItems.length; i++){
+                        if (status.equalsIgnoreCase(filterItems[i])){
+                            nav = i+1;
+                            updateStatus = filterItems[i+1];
+                            break;
+                        }
+                    }
+                    orderDAO.updateOrderStatus(orderId, updateStatus);
+                    target = "manage?mode=filterOrder&items="+status;
+                    break;
+                }
+                case "orderDetail": {
+                    active = 1;
+                    int orderId = Integer.parseInt(request.getParameter("id"));
+                    Order o = orderDAO.getOrderByOrderId(orderId);
+                    Profile profile = accountDAO.getProfile(o.getCustomerId());
+                    Cart cart = orderDAO.getOrderDetailByOrderId(orderId);
+                    
+                    request.setAttribute("profile", profile);
+                    request.setAttribute("order", o);
+                    request.setAttribute("cart", cart);
+                    request.setAttribute("active", active);                   
+                    target = "view/admin/OrderDetail.jsp";
                     break;
                 }
                 case "disableProduct": {
